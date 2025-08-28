@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  entry_date: 2025-08-28 12:22:15
+  output_date: 2025-08-28 12:22:15
+  status: MyString
+  motorcycle: one
+  workshop: one
+
+two:
+  entry_date: 2025-08-28 12:22:15
+  output_date: 2025-08-28 12:22:15
+  status: MyString
+  motorcycle: two
+  workshop: two

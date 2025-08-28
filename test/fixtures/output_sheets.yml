@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mileage: 1
+  fuel_level: 1
+  oil_level: 1
+  notes: MyText
+  repaired_parts: MyText
+  disclaimer: MyText
+  intervention: one
+
+two:
+  mileage: 1
+  fuel_level: 1
+  oil_level: 1
+  notes: MyText
+  repaired_parts: MyText
+  disclaimer: MyText
+  intervention: two
