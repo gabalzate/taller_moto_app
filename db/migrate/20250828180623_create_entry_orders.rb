@@ -22,6 +22,7 @@ class CreateEntryOrders < ActiveRecord::Migration[8.0]
       t.text :engine_accelerating_status
       t.text :notes
       t.references :intervention, null: false, foreign_key: true
+      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end

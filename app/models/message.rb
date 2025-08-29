@@ -1,4 +1,8 @@
+# app/models/message.rb
 class Message < ApplicationRecord
+  # Un mensaje pertenece a una única conversación
   belongs_to :conversation
-  belongs_to :sender
+
+  # Un mensaje es enviado por un usuario, por lo que especificamos la clase y la clave foránea.
+  belongs_to :sender, class_name: 'User', foreign_key: 'sender_id'
 end
