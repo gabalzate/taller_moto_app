@@ -7,10 +7,10 @@ class CreateEntryOrders < ActiveRecord::Migration[8.0]
       t.integer :oil_level
       t.text :visual_inspection_chassis
       t.text :tires_condition
-      t.boolean :front_light_status
-      t.boolean :turn_signals_status
-      t.boolean :brake_lights_status
-      t.boolean :horn_status
+      t.boolean :front_light_status, default: false
+      t.boolean :turn_signals_status, default: false
+      t.boolean :brake_lights_status, default: false
+      t.boolean :horn_status, default: false
       t.text :battery_status
       t.text :drive_chain_status
       t.text :front_brake_status

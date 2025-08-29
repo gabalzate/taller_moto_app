@@ -6,11 +6,14 @@ class CreateUsers < ActiveRecord::Migration[8.0]
       t.string :email
       t.string :document_number
       t.string :phone_number
-      t.string :role
-      t.boolean :status
-      t.references :workshop, null: false, foreign_key: true
+      t.boolean :is_super_admin, default: false
+      t.boolean :is_admin, default: false
+      t.boolean :is_mechanic, default: false
+      t.boolean :status, default: true
+      t.references :workshop, foreign_key: true
 
       t.timestamps
     end
   end
 end
+

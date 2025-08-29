@@ -6,7 +6,9 @@ one:
   email: MyString
   document_number: MyString
   phone_number: MyString
-  role: MyString
+  is_super_admin: false
+  is_admin: false
+  is_mechanic: false
   status: false
   workshop: one
 
@@ -16,6 +18,8 @@ two:
   email: MyString
   document_number: MyString
   phone_number: MyString
-  role: MyString
+  is_super_admin: false
+  is_admin: false
+  is_mechanic: false
   status: false
   workshop: two
