@@ -5,4 +5,7 @@ class OutputSheet < ApplicationRecord
 
   # Una hoja de salida es creada por un usuario
   belongs_to :user
+
+  # --- Validaciones ---
+  validates :mileage, presence: true
 end

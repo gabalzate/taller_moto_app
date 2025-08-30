@@ -8,4 +8,7 @@ class Conversation < ApplicationRecord
 
   # Una conversación tiene muchos mensajes
   has_many :messages
+
+  # --- Validaciones ---
+  validates :user_id, :super_admin_id, presence: true
 end

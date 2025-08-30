@@ -3,6 +3,9 @@ class Service < ApplicationRecord
   # Un servicio pertenece a un taller
   belongs_to :workshop
 
+  # --- Validaciones ---
+  validates :name, presence: true
+
   # Este callback se ejecuta antes de que el servicio se guarde en la base de datos.
   before_save :set_default_description
 

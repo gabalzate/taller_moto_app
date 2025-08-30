@@ -17,4 +17,8 @@ class Workshop < ApplicationRecord
 
   # Un taller tiene muchas motocicletas a través de las intervenciones
   has_many :motorcycles, through: :interventions
+
+  # --- Validaciones ---
+  validates :name, presence: true, uniqueness: true
+  validates :city, presence: true
 end

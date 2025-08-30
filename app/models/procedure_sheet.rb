@@ -5,4 +5,7 @@ class ProcedureSheet < ApplicationRecord
 
   # Una hoja de procedimientos pertenece a un único usuario (mecánico)
   belongs_to :user
+
+  # --- Validaciones ---
+  validates :content, presence: true
 end

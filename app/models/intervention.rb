@@ -12,4 +12,7 @@ class Intervention < ApplicationRecord
 
   # Una intervención tiene una hoja de salida
   has_one :output_sheet
+
+  # --- Validaciones ---
+  validates :motorcycle_id, :workshop_id, presence: true
 end
