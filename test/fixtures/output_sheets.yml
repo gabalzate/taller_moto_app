@@ -1,19 +1,10 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
+# test/fixtures/output_sheets.yml
 one:
-  mileage: 1
-  fuel_level: 1
-  oil_level: 1
-  notes: MyText
-  repaired_parts: MyText
-  disclaimer: MyText
+  mileage: 15010
+  fuel_level: 50
+  oil_level: 100
+  notes: "Servicio completo realizado."
+  repaired_parts: "Aceite y filtro."
+  disclaimer: "Garantía de 30 días en el servicio."
   intervention: one
-
-two:
-  mileage: 1
-  fuel_level: 1
-  oil_level: 1
-  notes: MyText
-  repaired_parts: MyText
-  disclaimer: MyText
-  intervention: two
+  user: one

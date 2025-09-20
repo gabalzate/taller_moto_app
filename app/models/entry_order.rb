@@ -6,6 +6,10 @@ class EntryOrder < ApplicationRecord
   # Una orden de entrada es creada por un usuario
   belongs_to :user
 
+
+  # ... otras relaciones ...
+  has_many_attached :photos
+
   # --- Validaciones ---
   validates :problem_description, :mileage, presence: true
 end

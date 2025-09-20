@@ -10,7 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_28_234817) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_19_232550) do
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.string "service_name", null: false
+    t.bigint "byte_size", null: false
+    t.string "checksum"
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
   create_table "clients", force: :cascade do |t|
     t.string "name"
     t.string "document_number"
@@ -18,6 +46,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_28_234817) do
     t.integer "workshop_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.string "email", null: false
+    t.index ["email"], name: "index_clients_on_email", unique: true
+    t.index ["user_id"], name: "index_clients_on_user_id"
     t.index ["workshop_id"], name: "index_clients_on_workshop_id"
   end
 
@@ -55,7 +87,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_28_234817) do
     t.integer "intervention_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
     t.index ["intervention_id"], name: "index_entry_orders_on_intervention_id"
+    t.index ["user_id"], name: "index_entry_orders_on_user_id"
   end
 
   create_table "interventions", force: :cascade do |t|
@@ -102,7 +136,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_28_234817) do
     t.integer "intervention_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
     t.index ["intervention_id"], name: "index_output_sheets_on_intervention_id"
+    t.index ["user_id"], name: "index_output_sheets_on_user_id"
   end
 
   create_table "plans", force: :cascade do |t|
@@ -178,16 +214,21 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_28_234817) do
     t.index ["user_id"], name: "index_workshops_on_user_id"
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "clients", "users"
   add_foreign_key "clients", "workshops"
   add_foreign_key "conversations", "users"
   add_foreign_key "conversations", "users", column: "super_admin_id"
   add_foreign_key "entry_orders", "interventions"
+  add_foreign_key "entry_orders", "users"
   add_foreign_key "interventions", "motorcycles"
   add_foreign_key "interventions", "workshops"
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users", column: "sender_id"
   add_foreign_key "motorcycles", "clients"
   add_foreign_key "output_sheets", "interventions"
+  add_foreign_key "output_sheets", "users"
   add_foreign_key "procedure_sheets", "interventions"
   add_foreign_key "procedure_sheets", "users"
   add_foreign_key "services", "workshops"

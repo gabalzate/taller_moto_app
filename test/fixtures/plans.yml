@@ -1,13 +1,6 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
+# test/fixtures/plans.yml
 one:
-  name: MyString
-  price: 9.99
+  name: "Plan Básico"
+  price: 20.00
   duration: 1
-  details: MyText
-
-two:
-  name: MyString
-  price: 9.99
-  duration: 1
-  details: MyText
+  details: "Plan para un taller."

@@ -1,15 +1,7 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
+# test/fixtures/interventions.yml
 one:
-  entry_date: 2025-08-28 12:22:15
-  output_date: 2025-08-28 12:22:15
-  status: MyString
+  entry_date: 2024-01-01 10:00:00
+  output_date: 2024-01-01 12:00:00
+  status: "completed"
   motorcycle: one
   workshop: one
-
-two:
-  entry_date: 2025-08-28 12:22:15
-  output_date: 2025-08-28 12:22:15
-  status: MyString
-  motorcycle: two
-  workshop: two

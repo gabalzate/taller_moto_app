@@ -1,11 +1,5 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
+# test/fixtures/conversations.yml
 one:
   user: one
   super_admin: one
-  status: MyString
-
-two:
-  user: two
-  super_admin: two
-  status: MyString
+  status: "open"

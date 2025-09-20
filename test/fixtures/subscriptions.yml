@@ -1,17 +1,8 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
+# test/fixtures/subscriptions.yml
 one:
   user: one
   plan: one
-  wompi_transaction_id: MyString
-  start_date: 2025-08-28 14:57:56
-  end_date: 2025-08-28 14:57:56
-  status: MyString
-
-two:
-  user: two
-  plan: two
-  wompi_transaction_id: MyString
-  start_date: 2025-08-28 14:57:56
-  end_date: 2025-08-28 14:57:56
-  status: MyString
+  wompi_transaction_id: "abcdef12345"
+  start_date: 2024-01-01 10:00:00
+  end_date: 2024-02-01 10:00:00
+  status: "active"

@@ -1,23 +1,11 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
+# test/fixtures/workshops.yml
 one:
-  name: MyString
-  phone: MyString
-  city: MyString
-  address: MyString
-  details: MyText
-  opening_hours: MyString
-  unique_profile_link: MyString
-  status: false
+  name: "Taller Uno"
+  phone: "555-1111"
+  city: "Bogotá"
+  address: "Calle 123"
+  details: "Un taller de prueba para tests"
+  opening_hours: "9am - 6pm"
+  unique_profile_link: "taller-uno"
+  status: true
   user: one
-
-two:
-  name: MyString
-  phone: MyString
-  city: MyString
-  address: MyString
-  details: MyText
-  opening_hours: MyString
-  unique_profile_link: MyString
-  status: false
-  user: two

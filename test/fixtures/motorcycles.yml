@@ -1,15 +1,7 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
+# test/fixtures/motorcycles.yml
 one:
-  license_plate: MyString
-  brand: MyString
-  model: MyString
-  year: 1
+  license_plate: "ABC-123"
+  brand: "Honda"
+  model: "CBR"
+  year: 2020
   client: one
-
-two:
-  license_plate: MyString
-  brand: MyString
-  model: MyString
-  year: 1
-  client: two

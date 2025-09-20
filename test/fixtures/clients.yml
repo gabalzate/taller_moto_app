@@ -1,13 +1,8 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
+# test/fixtures/clients.yml
 one:
-  name: MyString
-  document_number: MyString
-  phone_number: MyString
+  name: "Client One"
+  document_number: "99999999"
+  phone_number: "555-5555"
+  user: one
   workshop: one
-
-two:
-  name: MyString
-  document_number: MyString
-  phone_number: MyString
-  workshop: two
+  email: "client_one@example.com"

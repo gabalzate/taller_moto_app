@@ -1,25 +1,11 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
+# test/fixtures/users.yml
 one:
-  first_name: MyString
-  last_name: MyString
-  email: MyString
-  document_number: MyString
-  phone_number: MyString
+  first_name: "John"
+  last_name: "Doe"
+  email: "john@example.com"
+  document_number: "11111111"
+  phone_number: "555-1234"
   is_super_admin: false
-  is_admin: false
-  is_mechanic: false
-  status: false
-  workshop: one
-
-two:
-  first_name: MyString
-  last_name: MyString
-  email: MyString
-  document_number: MyString
-  phone_number: MyString
-  is_super_admin: false
-  is_admin: false
-  is_mechanic: false
-  status: false
-  workshop: two
+  is_admin: true
+  is_mechanic: true
+  status: true
