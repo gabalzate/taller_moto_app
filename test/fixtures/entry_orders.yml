@@ -21,4 +21,4 @@ one:
   engine_accelerating_status: "ok"
   notes: "Notas adicionales"
   intervention: one
-  user: one
+  user: admin

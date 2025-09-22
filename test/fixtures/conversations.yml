@@ -1,5 +1,5 @@
-# test/fixtures/conversations.yml
+ # test/fixtures/conversations.yml
 one:
-  user: one
-  super_admin: one
+  user: admin
+  super_admin: super_admin
   status: "open"

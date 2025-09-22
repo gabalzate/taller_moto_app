@@ -63,3 +63,8 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+# Gema devise para manejar usuarios
+gem 'devise'
+# Gemfile cancancan, para manejar permisos de los usuarios
+gem 'cancancan'

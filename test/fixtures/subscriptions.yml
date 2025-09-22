@@ -1,6 +1,6 @@
 # test/fixtures/subscriptions.yml
 one:
-  user: one
+  user: admin
   plan: one
   wompi_transaction_id: "abcdef12345"
   start_date: 2024-01-01 10:00:00

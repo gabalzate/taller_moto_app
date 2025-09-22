@@ -1,11 +1,40 @@
 # test/fixtures/users.yml
-one:
-  first_name: "John"
-  last_name: "Doe"
-  email: "john@example.com"
+super_admin:
+  first_name: "Super"
+  last_name: "Admin"
+  email: "super_admin@example.com"
   document_number: "11111111"
   phone_number: "555-1234"
-  is_super_admin: false
+  is_super_admin: true
   is_admin: true
   is_mechanic: true
-  status: true
+
+admin:
+  first_name: "Admin"
+  last_name: "User"
+  email: "admin@example.com"
+  document_number: "22222222"
+  phone_number: "555-5678"
+  is_super_admin: false
+  is_admin: true
+  is_mechanic: false
+
+mechanic:
+  first_name: "Mechanic"
+  last_name: "User"
+  email: "mechanic@example.com"
+  document_number: "33333333"
+  phone_number: "555-9012"
+  is_super_admin: false
+  is_admin: false
+  is_mechanic: true
+
+other_user:
+  first_name: "Other"
+  last_name: "User"
+  email: "other@example.com"
+  document_number: "44444444"
+  phone_number: "555-3456"
+  is_super_admin: false
+  is_admin: false
+  is_mechanic: false

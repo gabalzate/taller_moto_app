@@ -3,6 +3,6 @@ one:
   name: "Client One"
   document_number: "99999999"
   phone_number: "555-5555"
-  user: one
+  user: admin
   workshop: one
   email: "client_one@example.com"

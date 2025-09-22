@@ -1,6 +1,6 @@
 # test/fixtures/messages.yml
 one:
   conversation: one
-  sender: one
+  sender: admin
   content: "Hola, tengo una duda."
   read: false

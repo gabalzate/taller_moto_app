@@ -1,0 +1,12 @@
+<% if current_user.is_super_admin? %>
+  <h1>Dashboard de Super Administrador</h1>
+  <p>Aquí verás las métricas de la plataforma y todos los talleres.</p>
+<% elsif current_user.is_admin? %>
+  <h1>Dashboard de Administrador de Taller</h1>
+  <p>Aquí verás la gestión de tu taller, clientes y motocicletas.</p>
+<% elsif current_user.is_mechanic? %>
+  <h1>Dashboard de Mecánico</h1>
+  <p>Aquí verás la lista de tus tareas y órdenes de trabajo.</p>
+<% end %>
+
+<%= link_to 'Cerrar sesión', destroy_user_session_path, data: { turbo_method: :delete } %>
