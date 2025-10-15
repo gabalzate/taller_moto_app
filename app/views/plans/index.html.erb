@@ -1,0 +1,27 @@
+<div class="container mx-auto p-4">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold text-gray-800">Planes de Suscripción</h1>
+    <% if can? :create, Plan %>
+      <%= link_to 'Crear Nuevo Plan', new_plan_path, class: "bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer" %>
+    <% end %>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <% @plans.each do |plan| %>
+      <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col">
+        <h2 class="text-2xl font-bold text-gray-900"><%= plan.name %></h2>
+        <p class="text-4xl font-extrabold text-gray-900 my-4">$<%= number_to_currency(plan.price, unit: "", separator: ".", delimiter: ",") %> <span class="text-base font-medium text-gray-500">/ <%= plan.duration %> mo</span></p>
+        <p class="text-gray-600 flex-grow"><%= plan.details %></p>
+        <div class="mt-6">
+          <%= link_to 'Seleccionar Plan', new_plan_subscription_path(plan), class: "w-full text-center bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded" %>
+        </div>
+        <% if can? :manage, plan %>
+          <div class="mt-4 text-center text-sm">
+            <%= link_to 'Editar', edit_plan_path(plan), class: "text-gray-500 hover:text-gray-700" %> |
+            <%= link_to 'Eliminar', plan, data: { turbo_method: :delete, turbo_confirm: '¿Estás seguro?' }, class: "text-red-500 hover:text-red-700" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

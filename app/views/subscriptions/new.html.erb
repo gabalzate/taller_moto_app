@@ -1,0 +1,37 @@
+<div class="container mx-auto p-4 max-w-2xl">
+  <h1 class="text-3xl font-bold mb-6 text-gray-800">Confirmar tu Suscripción</h1>
+
+  <div class="bg-white shadow-lg rounded-lg p-8 border">
+
+    <%= form_with(model: @subscription, url: plan_subscriptions_path(@plan), method: :post, local: true) do |form| %>
+
+      <%# --- BLOQUE DE CÓDIGO AÑADIDO --- %>
+      <% if @subscription.errors.any? %>
+        <div id="error_explanation" class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6" role="alert">
+          <h2 class="font-bold mb-2"><%= pluralize(@subscription.errors.count, "error") %> impidieron crear la suscripción:</h2>
+          <ul class="list-disc list-inside">
+            <% @subscription.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <%# --- FIN DEL BLOQUE AÑADIDO --- %>
+
+      <h2 class="text-2xl font-semibold text-gray-900 mb-4">Estás a punto de suscribirte al plan:</h2>
+
+      <div class="border-t border-b py-4 my-4">
+        <p class="text-xl font-bold text-indigo-600"><%= @plan.name %></p>
+        <p class="text-3xl font-extrabold text-gray-900 mt-2">$<%= number_to_currency(@plan.price, unit: "", separator: ".", delimiter: ",") %> <span class="text-base font-medium text-gray-500">/ <%= @plan.duration %> meses</span></p>
+        <p class="text-gray-600 mt-2"><%= @plan.details %></p>
+      </div>
+
+      <p class="text-gray-600 mb-6">Al confirmar, tu suscripción quedará activa y se establecerá la fecha de inicio y finalización. En un futuro, este paso te redirigirá a la pasarela de pagos Wompi.</p>
+
+      <div class="flex items-center justify-end space-x-4">
+        <%= link_to 'Cancelar', plans_path, class: "inline-block align-baseline font-bold text-sm text-gray-600 hover:text-gray-800" %>
+        <%= form.submit "Confirmar Suscripción", class: "bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer" %>
+      </div>
+    <% end %>
+  </div>
+</div>

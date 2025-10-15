@@ -17,7 +17,8 @@ class Ability
       can :manage, Service, workshop: { user_id: user.id }
       can :read, Intervention, workshop_id: user.workshops.pluck(:id)
       can :manage, Conversation, user_id: user.id
-      can :read, [Plan, Subscription, Message]
+      can :read, [Plan, Message]
+      can [:read, :create], Subscription
       can :read, :dashboard
     elsif user.is_mechanic?
       # El mecánico solo puede leer lo que está en su taller y gestionar sus propios documentos

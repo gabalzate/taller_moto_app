@@ -1,9 +1,4 @@
 Rails.application.routes.draw do
-  get "output_sheets/new"
-  get "output_sheets/create"
-  get "output_sheets/show"
-  get "output_sheets/edit"
-  get "output_sheets/update"
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -32,5 +27,12 @@ Rails.application.routes.draw do
     resources :procedure_sheets, only: [:new, :create, :show, :edit, :update]
     resources :output_sheets, only: [:new, :create, :show, :edit, :update]
   end
+
+  resources :plans do
+    resources :subscriptions, only: [:new, :create]
+  end
+
+  # Ruta para que los usuarios vean su suscripción
+  resources :subscriptions, only: [:index, :show]
 
 end
