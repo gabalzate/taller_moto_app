@@ -25,6 +25,17 @@
             <%= link_to 'Iniciar sesión', new_user_session_path, class: "text-gray-800 hover:text-indigo-600" %>
           <% end %>
         </div>
+
+
+        <div class="text-center my-4">
+          <% if user_signed_in? && !current_user.is_super_admin? %>
+            <%= link_to "Iniciar Chat con Soporte", conversations_path, method: :post, class: "text-indigo-600 hover:text-indigo-800 font-semibold" %>
+          <% elsif user_signed_in? && current_user.is_super_admin? %>
+            <%= link_to "Ver Chats de Soporte", conversations_path, class: "text-indigo-600 hover:text-indigo-800 font-semibold" %>
+          <% end %>
+        </div>
+
+
       </nav>
     </header>
 

@@ -1,0 +1,6 @@
+<div class="flex <%= message.sender == current_user ? 'justify-end' : 'justify-start' %>">
+  <div class="<%= message.sender == current_user ? 'bg-indigo-500 text-white' : 'bg-gray-200 text-gray-800' %> rounded-lg p-3 max-w-xs">
+    <p class="text-sm"><%= message.content %></p>
+    <p class="text-xs text-right mt-1 opacity-75"><%= message.created_at.strftime("%I:%M %p") %></p>
+  </div>
+</div>

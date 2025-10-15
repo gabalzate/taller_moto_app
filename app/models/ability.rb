@@ -15,14 +15,15 @@ class Ability
       can :manage, Client, workshop_id: user.workshops.pluck(:id)
       can :manage, Motorcycle, client: { workshop_id: user.workshops.pluck(:id) }
       can :manage, Service, workshop: { user_id: user.id }
-      can :read, Intervention, workshop_id: user.workshops.pluck(:id)
+      can :manage, Intervention, workshop_id: user.workshops.pluck(:id) # <-- CAMBIO 1: de :read a :manage
       can :manage, Conversation, user_id: user.id
-      can :read, [Plan, Message]
+      can :read, Plan
       can [:read, :create], Subscription
+      can [:read, :create], Message, conversation: { user_id: user.id }
       can :read, :dashboard
     elsif user.is_mechanic?
-      # El mecánico solo puede leer lo que está en su taller y gestionar sus propios documentos
-      can :manage, [EntryOrder, ProcedureSheet, OutputSheet], user_id: user.id
+      # El mecánico puede leer lo que está en su taller y gestionar hojas de trabajo de su taller
+      can :manage, [EntryOrder, ProcedureSheet, OutputSheet], intervention: { workshop_id: user.workshop_id } # <-- CAMBIO 2: Lógica más colaborativa
       can :read, Intervention, workshop_id: user.workshop_id
       can :read, Client, workshop_id: user.workshop_id
       can :read, Motorcycle, client: { workshop_id: user.workshop_id }

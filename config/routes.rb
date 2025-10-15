@@ -35,4 +35,8 @@ Rails.application.routes.draw do
   # Ruta para que los usuarios vean su suscripción
   resources :subscriptions, only: [:index, :show]
 
+  resources :conversations, only: [:index, :show, :new, :create] do
+    resources :messages, only: [:create], shallow: true
+  end
+
 end

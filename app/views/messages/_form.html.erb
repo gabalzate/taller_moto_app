@@ -1,0 +1,7 @@
+<%# El DOM ID es importante para que Turbo Stream pueda reemplazarlo y limpiar el campo %>
+<%= form_with(model: [conversation, message], id: "new_message") do |form| %>
+  <div class="flex items-center">
+    <%= form.text_area :content, class: "flex-grow rounded-md border-gray-300 shadow-sm", placeholder: "Escribe tu mensaje...", rows: 1 %>
+    <%= form.submit "Enviar", class: "ml-4 bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded cursor-pointer" %>
+  </div>
+<% end %>

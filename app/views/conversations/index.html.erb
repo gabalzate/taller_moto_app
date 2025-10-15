@@ -1,0 +1,44 @@
+<div class="container mx-auto p-4 max-w-3xl">
+  <h1 class="text-3xl font-bold mb-6 text-gray-800">
+    <% if current_user.is_super_admin? %>
+      Chats de Soporte
+    <% else %>
+      Mi Chat con Soporte
+    <% end %>
+  </h1>
+
+  <div class="bg-white shadow-lg rounded-lg">
+    <ul class="divide-y divide-gray-200">
+      <% @conversations.each do |conversation| %>
+        <%= link_to conversation, class: "block hover:bg-gray-50" do %>
+          <li class="p-4">
+            <div class="font-semibold text-gray-900">
+              <% if current_user.is_super_admin? %>
+                Chat con: <%= conversation.user.email %>
+              <% else %>
+                Chat con: Super Administrador
+              <% end %>
+            </div>
+            <p class="text-sm text-gray-500 mt-1">
+              Última actividad: <%= conversation.updated_at.strftime("%d/%m/%Y %I:%M %p") %>
+            </p>
+          </li>
+        <% end %>
+      <% end %>
+
+      <%# --- BLOQUE MODIFICADO --- %>
+      <% if @conversations.empty? %>
+        <li class="p-8 text-center text-gray-500">
+          <h3 class="text-lg font-medium text-gray-900">No tienes conversaciones activas</h3>
+          <p class="mt-1">Inicia un chat con soporte para resolver tus dudas.</p>
+          <div class="mt-6">
+            <%# Este botón envía una petición POST para crear la conversación %>
+            <%= link_to "Iniciar Chat con Soporte", conversations_path, data: { turbo_method: :post }, class: "bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded" %>
+          </div>
+        </li>
+      <% end %>
+      <%# --- FIN DEL BLOQUE MODIFICADO --- %>
+
+    </ul>
+  </div>
+</div>

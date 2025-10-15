@@ -1,0 +1,9 @@
+<%# 1. Añade el nuevo mensaje al final del contenedor 'messages' %>
+<%= turbo_stream.append "messages" do %>
+  <%= render "messages/message", message: @message %>
+<% end %>
+
+<%# 2. Reemplaza el formulario 'new_message' con uno nuevo (limpiando así el campo de texto) %>
+<%= turbo_stream.replace "new_message" do %>
+  <%= render "messages/form", conversation: @conversation, message: @conversation.messages.new %>
+<% end %>
