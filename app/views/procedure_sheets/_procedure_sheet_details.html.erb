@@ -1,0 +1,4 @@
+<div class="bg-white shadow-sm rounded-lg p-4 border">
+  <p class="text-sm text-gray-500">Registrado el <%= procedure.created_at.strftime("%d/%m/%Y") %> por <%= procedure.user.email %></p>
+  <p class="mt-2 text-gray-800"><%= procedure.content %></p>
+</div>

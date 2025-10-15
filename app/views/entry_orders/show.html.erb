@@ -1,0 +1,33 @@
+<h1 class="text-2xl font-bold mb-4">Orden de Entrada #<%= @entry_order.id %></h1>
+<br>
+<div class="bg-white shadow-md rounded-lg p-6">
+  <p class="mb-2"><strong class="font-semibold">Descripción del problema:</strong> <%= @entry_order.problem_description %></p>
+  <p class="mb-2"><strong class="font-semibold">Kilometraje:</strong> <%= @entry_order.mileage %> km</p>
+  <p class="mb-2"><strong class="font-semibold">Nivel de gasolina:</strong> <%= @entry_order.fuel_level %> %</p>
+  <p class="mb-2"><strong class="font-semibold">Nivel de aceite:</strong> <%= @entry_order.oil_level %> %</p>
+  
+  <h2 class="text-xl font-bold mt-6 mb-4">Inspección Visual</h2>
+  <div class="space-y-2">
+    <p><strong class="font-semibold">Estado de la farola:</strong> <%= @entry_order.front_light_status ? 'Funciona' : 'No funciona' %></p>
+    <p><strong class="font-semibold">Estado de las direccionales:</strong> <%= @entry_order.turn_signals_status ? 'Funcionan' : 'No funcionan' %></p>
+    <p><strong class="font-semibold">Estado de las luces de freno:</strong> <%= @entry_order.brake_lights_status ? 'Funcionan' : 'No funcionan' %></p>
+    <p><strong class="font-semibold">Estado de la bocina:</strong> <%= @entry_order.horn_status ? 'Funciona' : 'No funciona' %></p>
+  </div>
+
+  <h2 class="text-xl font-bold mt-6 mb-4">Notas</h2>
+  <p class="mb-2"><strong class="font-semibold">Notas adicionales:</strong> <%= @entry_order.notes %></p>
+
+  <% if @entry_order.photos.attached? %>
+    <h2 class="text-xl font-bold mt-6 mb-4">Fotos de la inspección</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <% @entry_order.photos.each do |photo| %>
+        <%= image_tag photo, class: "rounded-lg shadow-md" %>
+      <% end %>
+    </div>
+  <% end %>
+
+</div>
+
+<div class="mt-6 flex space-x-4">
+  <%= link_to 'Volver a la intervención', @entry_order.intervention, class: "inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50" %>
+</div>

@@ -1,0 +1,8 @@
+<div class="bg-white shadow-sm rounded-lg p-6 border">
+  <p><strong class="font-medium">Kilometraje de Salida:</strong> <%= output_sheet.mileage %></p>
+  <p><strong class="font-medium">Partes Reparadas:</strong> <%= output_sheet.repaired_parts %></p>
+  <p><strong class="font-medium">Garantía:</strong> <%= output_sheet.disclaimer %></p>
+  <div class="mt-4">
+    <%= link_to 'Editar Hoja de Salida', edit_intervention_output_sheet_path(output_sheet.intervention, output_sheet), class: "text-indigo-600 hover:text-indigo-900" %>
+  </div>
+</div>

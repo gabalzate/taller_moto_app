@@ -1,0 +1,243 @@
+<%= form_with(model: [@intervention, @entry_order], class: "space-y-6") do |form| %>
+  <% if @entry_order.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-700 border-l-4 border-red-500 p-4" role="alert">
+      <h2 class="font-bold mb-2"><%= pluralize(@entry_order.errors.count, "error") %> impidieron que esta orden se guardara:</h2>
+      <ul class="list-disc list-inside">
+        <% @entry_order.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="space-y-4">
+    <h3 class="text-xl font-semibold text-gray-900">Datos de la Moto</h3>
+
+    <div>
+      <%= form.label :mileage, "Kilometraje", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.number_field :mileage, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+    </div>
+
+    <div>
+      <%= form.label :fuel_level, "Nivel de gasolina", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.select :fuel_level, [['1/4', 1], ['1/2', 2], ['3/4', 3], ['Lleno', 4]], { include_blank: true }, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+    </div>
+
+    <div>
+      <%= form.label :oil_level, "Nivel de aceite", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.select :oil_level, [['Bajo', 1], ['Medio', 2], ['Alto', 3]], { include_blank: true }, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+    </div>
+
+    <div>
+      <%= form.label :problem_description, "Descripción del problema reportado por el cliente", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.text_area :problem_description, rows: 4, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+    </div>
+  </div>
+
+  <div class="space-y-4">
+    <h3 class="text-xl font-semibold text-gray-900">Inspección Visual</h3>
+
+    <%= form.label :visual_inspection_chassis, "Inspección visual del chasis y carrocería", class: "block text-sm font-medium text-gray-700" %>
+    <div class="flex items-center space-x-4">
+      <label class="inline-flex items-center">
+        <%= form.radio_button :visual_inspection_chassis, 'bueno', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">Bueno</span>
+      </label>
+      <label class="inline-flex items-center">
+        <%= form.radio_button :visual_inspection_chassis, 'malo', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">Malo</span>
+      </label>
+    </div>
+
+    <%= form.label :tires_condition, "Estado de los neumáticos", class: "block text-sm font-medium text-gray-700" %>
+    <div class="flex items-center space-x-4">
+      <label class="inline-flex items-center">
+        <%= form.radio_button :tires_condition, 'bueno', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">Bueno</span>
+      </label>
+      <label class="inline-flex items-center">
+        <%= form.radio_button :tires_condition, 'malo', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">Malo</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="space-y-4">
+    <h3 class="text-xl font-semibold text-gray-900">Verificación de Sistemas</h3>
+
+    <%= form.label :front_light_status, "Estado de luz delantera", class: "block text-sm font-medium text-gray-700" %>
+    <div class="flex items-center space-x-4">
+      <label class="inline-flex items-center">
+        <%= form.radio_button :front_light_status, 'funciona', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">Funciona</span>
+      </label>
+      <label class="inline-flex items-center">
+        <%= form.radio_button :front_light_status, 'no_funciona', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">No funciona</span>
+      </label>
+    </div>
+
+    <%= form.label :turn_signals_status, "Estado de las luces direccionales", class: "block text-sm font-medium text-gray-700" %>
+    <div class="flex items-center space-x-4">
+      <label class="inline-flex items-center">
+        <%= form.radio_button :turn_signals_status, 'funciona', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">Funciona</span>
+      </label>
+      <label class="inline-flex items-center">
+        <%= form.radio_button :turn_signals_status, 'no_funciona', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">No funciona</span>
+      </label>
+    </div>
+
+    <%= form.label :brake_lights_status, "Estado de las luces de freno", class: "block text-sm font-medium text-gray-700" %>
+    <div class="flex items-center space-x-4">
+      <label class="inline-flex items-center">
+        <%= form.radio_button :brake_lights_status, 'funciona', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">Funciona</span>
+      </label>
+      <label class="inline-flex items-center">
+        <%= form.radio_button :brake_lights_status, 'no_funciona', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">No funciona</span>
+      </label>
+    </div>
+
+    <%= form.label :horn_status, "Estado de la bocina", class: "block text-sm font-medium text-gray-700" %>
+    <div class="flex items-center space-x-4">
+      <label class="inline-flex items-center">
+        <%= form.radio_button :horn_status, 'funciona', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">Funciona</span>
+      </label>
+      <label class="inline-flex items-center">
+        <%= form.radio_button :horn_status, 'no_funciona', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">No funciona</span>
+      </label>
+    </div>
+
+    <%= form.label :battery_status, "Estado de la batería", class: "block text-sm font-medium text-gray-700" %>
+    <div class="flex items-center space-x-4">
+      <label class="inline-flex items-center">
+        <%= form.radio_button :battery_status, 'bueno', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">Bueno</span>
+      </label>
+      <label class="inline-flex items-center">
+        <%= form.radio_button :battery_status, 'malo', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">Malo</span>
+      </label>
+    </div>
+
+    <%= form.label :drive_chain_status, "Estado de la cadena de transmisión", class: "block text-sm font-medium text-gray-700" %>
+    <div class="flex items-center space-x-4">
+      <label class="inline-flex items-center">
+        <%= form.radio_button :drive_chain_status, 'bueno', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">Bueno</span>
+      </label>
+      <label class="inline-flex items-center">
+        <%= form.radio_button :drive_chain_status, 'malo', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">Malo</span>
+      </label>
+    </div>
+
+    <%= form.label :front_brake_status, "Estado del freno delantero", class: "block text-sm font-medium text-gray-700" %>
+    <div class="flex items-center space-x-4">
+      <label class="inline-flex items-center">
+        <%= form.radio_button :front_brake_status, 'bueno', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">Bueno</span>
+      </label>
+      <label class="inline-flex items-center">
+        <%= form.radio_button :front_brake_status, 'malo', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">Malo</span>
+      </label>
+    </div>
+
+    <%= form.label :rear_brake_status, "Estado del freno trasero", class: "block text-sm font-medium text-gray-700" %>
+    <div class="flex items-center space-x-4">
+      <label class="inline-flex items-center">
+        <%= form.radio_button :rear_brake_status, 'bueno', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">Bueno</span>
+      </label>
+      <label class="inline-flex items-center">
+        <%= form.radio_button :rear_brake_status, 'malo', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">Malo</span>
+      </label>
+    </div>
+
+    <%= form.label :throttle_cable_status, "Estado del cable del acelerador", class: "block text-sm font-medium text-gray-700" %>
+    <div class="flex items-center space-x-4">
+      <label class="inline-flex items-center">
+        <%= form.radio_button :throttle_cable_status, 'bueno', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">Bueno</span>
+      </label>
+      <label class="inline-flex items-center">
+        <%= form.radio_button :throttle_cable_status, 'malo', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">Malo</span>
+      </label>
+    </div>
+
+    <%= form.label :clutch_cable_status, "Estado del cable del embrague", class: "block text-sm font-medium text-gray-700" %>
+    <div class="flex items-center space-x-4">
+      <label class="inline-flex items-center">
+        <%= form.radio_button :clutch_cable_status, 'bueno', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">Bueno</span>
+      </label>
+      <label class="inline-flex items-center">
+        <%= form.radio_button :clutch_cable_status, 'malo', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">Malo</span>
+      </label>
+    </div>
+
+    <%= form.label :engine_start_status, "Estado de arranque del motor", class: "block text-sm font-medium text-gray-700" %>
+    <div class="flex items-center space-x-4">
+      <label class="inline-flex items-center">
+        <%= form.radio_button :engine_start_status, 'funciona', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">Funciona</span>
+      </label>
+      <label class="inline-flex items-center">
+        <%= form.radio_button :engine_start_status, 'no_funciona', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">No funciona</span>
+      </label>
+    </div>
+
+    <%= form.label :engine_idle_status, "Estado de ralentí del motor", class: "block text-sm font-medium text-gray-700" %>
+    <div class="flex items-center space-x-4">
+      <label class="inline-flex items-center">
+        <%= form.radio_button :engine_idle_status, 'estable', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">Estable</span>
+      </label>
+      <label class="inline-flex items-center">
+        <%= form.radio_button :engine_idle_status, 'inestable', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">Inestable</span>
+      </label>
+    </div>
+
+    <%= form.label :engine_accelerating_status, "Estado de aceleración del motor", class: "block text-sm font-medium text-gray-700" %>
+    <div class="flex items-center space-x-4">
+      <label class="inline-flex items-center">
+        <%= form.radio_button :engine_accelerating_status, 'estable', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">Estable</span>
+      </label>
+      <label class="inline-flex items-center">
+        <%= form.radio_button :engine_accelerating_status, 'inestable', class: "form-radio text-indigo-600" %>
+        <span class="ml-2">Inestable</span>
+      </label>
+    </div>
+  </div>
+
+  <div>
+    <%= form.label :notes, "Notas adicionales", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_area :notes, rows: 4, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+  </div>
+
+  <div>
+    <%= form.label :photos, "Fotos de la moto", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.file_field :photos, multiple: true, class: "mt-1 block w-full text-sm text-gray-500
+      file:mr-4 file:py-2 file:px-4
+      file:rounded-md file:border-0
+      file:text-sm file:font-semibold
+      file:bg-indigo-50 file:text-indigo-700
+      hover:file:bg-indigo-100" %>
+  </div>
+
+  <div class="flex justify-end">
+    <%= form.submit "Guardar Orden de Entrada", class: "inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 cursor-pointer" %>
+  </div>
+<% end %>

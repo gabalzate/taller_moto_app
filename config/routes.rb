@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  get "output_sheets/new"
+  get "output_sheets/create"
+  get "output_sheets/show"
+  get "output_sheets/edit"
+  get "output_sheets/update"
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -16,5 +21,16 @@ Rails.application.routes.draw do
   #Rutas para el recurso workshop
   resources :clients
   resources :workshops
+  resources :motorcycles do
+    member do
+      post 'create_intervention'
+    end
+  end
+
+  resources :interventions do
+    resources :entry_orders, only: [:new, :create, :show, :edit, :update]
+    resources :procedure_sheets, only: [:new, :create, :show, :edit, :update]
+    resources :output_sheets, only: [:new, :create, :show, :edit, :update]
+  end
 
 end

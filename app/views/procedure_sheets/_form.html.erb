@@ -1,0 +1,21 @@
+<%= form_with(model: [@intervention, procedure_sheet], class: "space-y-6") do |form| %>
+  <% if procedure_sheet.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-700 border-l-4 border-red-500 p-4" role="alert">
+      <h2 class="font-bold mb-2"><%= pluralize(procedure_sheet.errors.count, "error") %> impidieron que esta entrada se guardara:</h2>
+      <ul class="list-disc list-inside">
+        <% procedure_sheet.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :content, "Descripción del procedimiento", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_area :content, rows: 6, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Guardar Procedimiento", class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 cursor-pointer" %>
+  </div>
+<% end %>

@@ -1,0 +1,40 @@
+<h1 class="text-2xl font-bold mb-4">Motocicletas</h1>
+
+<div class="overflow-x-auto">
+  <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+    <thead class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
+      <tr>
+        <th class="py-3 px-6 text-left">Placa</th>
+        <th class="py-3 px-6 text-left">Marca</th>
+        <th class="py-3 px-6 text-left">Modelo</th>
+        <th class="py-3 px-6 text-left">Año</th>
+        <th class="py-3 px-6 text-left">Propietario</th>
+        <th class="py-3 px-6 text-center">Acciones</th>
+      </tr>
+    </thead>
+    <tbody class="text-gray-600 text-sm font-light">
+      <% @motorcycles.each do |motorcycle| %>
+        <tr class="border-b border-gray-200 hover:bg-gray-100">
+          <td class="py-3 px-6 text-left whitespace-nowrap"><%= motorcycle.license_plate %></td>
+          <td class="py-3 px-6 text-left"><%= motorcycle.brand %></td>
+          <td class="py-3 px-6 text-left"><%= motorcycle.model %></td>
+          <td class="py-3 px-6 text-left"><%= motorcycle.year %></td>
+          <td class="py-3 px-6 text-left"><%= motorcycle.client.name %></td>
+          <td class="py-3 px-6 text-center">
+            <div class="flex item-center justify-center">
+              <%= link_to 'Ver', motorcycle, class: "text-indigo-600 hover:text-indigo-900" %>
+              <span class="mx-2 text-gray-300">|</span>
+              <%= link_to 'Editar', edit_motorcycle_path(motorcycle), class: "text-green-600 hover:text-green-900" %>
+              <span class="mx-2 text-gray-300">|</span>
+              <%= link_to 'Eliminar', motorcycle, data: { turbo_method: :delete, turbo_confirm: '¿Estás seguro?' }, class: "text-red-600 hover:text-red-900" %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="mt-6">
+  <%= link_to 'Crear nueva motocicleta', new_motorcycle_path, class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700" %>
+</div>

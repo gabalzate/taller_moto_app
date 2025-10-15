@@ -1,0 +1,41 @@
+<h1 class="text-2xl font-bold mb-4">Intervenciones</h1>
+
+<div class="overflow-x-auto">
+  <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+    <thead class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
+      <tr>
+        <th class="py-3 px-6 text-left">Motocicleta</th>
+        <th class="py-3 px-6 text-left">Taller</th>
+        <th class="py-3 px-6 text-left">Estado</th>
+        <th class="py-3 px-6 text-left">Fecha de entrada</th>
+        <th class="py-3 px-6 text-center">Acciones</th>
+      </tr>
+    </thead>
+    <tbody class="text-gray-600 text-sm font-light">
+      <% @interventions.each do |intervention| %>
+        <tr class="border-b border-gray-200 hover:bg-gray-100">
+          <td class="py-3 px-6 text-left whitespace-nowrap"><%= intervention.motorcycle.license_plate %></td>
+          <td class="py-3 px-6 text-left"><%= intervention.workshop.name %></td>
+          <td class="py-3 px-6 text-left"><%= intervention.status %></td>
+          <td class="py-3 px-6 text-left">
+            <% if intervention.entry_date %>
+              <%= intervention.entry_date.strftime("%d/%m/%Y") %>
+            <% else %>
+              No definida
+            <% end %>
+          </td>
+          <td class="py-3 px-6 text-center">
+            <div class="flex item-center justify-center">
+              <%= link_to 'Ver', intervention, class: "text-indigo-600 hover:text-indigo-900" %>
+              <span class="mx-2 text-gray-300">|</span>
+              <%= link_to 'Editar', edit_intervention_path(intervention), class: "text-green-600 hover:text-green-900" %>
+              <span class="mx-2 text-gray-300">|</span>
+              <%= link_to 'Eliminar', intervention, data: { turbo_method: :delete, turbo_confirm: '¿Estás seguro?' }, class: "text-red-600 hover:text-red-900" %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
