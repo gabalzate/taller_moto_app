@@ -1,5 +1,49 @@
-<div class="text-center p-8">
-  <h1 class="text-2xl font-bold text-gray-800">Aún no tienes una suscripción activa.</h1>
-  <p class="text-gray-600 mt-2">Elige uno de nuestros planes para empezar a gestionar tu taller.</p>
-  <%= link_to 'Ver Planes Disponibles', plans_path, class: "mt-6 inline-block bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded" %>
+<div class="container mx-auto p-4">
+
+  <% if current_user.is_super_admin? %>
+    <h1 class="text-3xl font-bold mb-6 text-gray-800">Gestionar Suscripciones</h1>
+    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+      <table class="min-w-full">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Usuario</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Plan</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estado</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          <% @subscriptions = Subscription.all.order(created_at: :desc) %>
+          <% @subscriptions.each do |sub| %>
+            <tr>
+              <td class="px-6 py-4"><%= sub.user.email %></td>
+              <td class="px-6 py-4"><%= sub.plan.name %></td>
+              <td class="px-6 py-4">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full <%= sub.status == 'active' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' %>">
+                  <%= sub.status.capitalize %>
+                </span>
+              </td>
+              <td class="px-6 py-4">
+                <% if sub.status == 'pending' %>
+                  <%= button_to 'Activar', approve_subscription_path(sub), method: :patch, class: "bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded" %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+  <% else %>
+    <% if @subscription %>
+      <%= render 'show', subscription: @subscription %>
+    <% else %>
+      <div class="text-center p-8">
+        <h1 class="text-2xl font-bold text-gray-800">Aún no tienes una suscripción.</h1>
+        <p class="text-gray-600 mt-2">Elige uno de nuestros planes para empezar a gestionar tu taller.</p>
+        <%= link_to 'Ver Planes Disponibles', plans_path, class: "mt-6 inline-block bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded" %>
+      </div>
+    <% end %>
+  <% end %>
+
 </div>

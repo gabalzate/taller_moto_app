@@ -1,12 +1,62 @@
-<% if current_user.is_super_admin? %>
-  <h1>Dashboard de Super Administrador</h1>
-  <p>Aquí verás las métricas de la plataforma y todos los talleres.</p>
-<% elsif current_user.is_admin? %>
-  <h1>Dashboard de Administrador de Taller</h1>
-  <p>Aquí verás la gestión de tu taller, clientes y motocicletas.</p>
-<% elsif current_user.is_mechanic? %>
-  <h1>Dashboard de Mecánico</h1>
-  <p>Aquí verás la lista de tus tareas y órdenes de trabajo.</p>
-<% end %>
+<div class="container mx-auto p-4">
 
-<%= link_to 'Cerrar sesión', destroy_user_session_path, data: { turbo_method: :delete } %>
+  <% if current_user.is_super_admin? %>
+    <h1 class="text-3xl font-bold mb-6 text-gray-800">Dashboard de Super Administrador</h1>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h2 class="text-lg font-semibold text-gray-600">Talleres Registrados</h2>
+        <p class="text-4xl font-bold text-gray-900 mt-2"><%= @total_workshops %></p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h2 class="text-lg font-semibold text-gray-600">Suscripciones Activas</h2>
+        <p class="text-4xl font-bold text-green-600 mt-2"><%= @active_subscriptions %></p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h2 class="text-lg font-semibold text-gray-600">Suscripciones Pendientes</h2>
+        <p class="text-4xl font-bold text-yellow-500 mt-2"><%= @pending_subscriptions %></p>
+        <%= link_to "Gestionar", subscriptions_path, class: "text-indigo-600 hover:text-indigo-800 font-semibold mt-2 inline-block" %>
+      </div>
+    </div>
+
+  <% elsif current_user.is_admin? %>
+    <h1 class="text-3xl font-bold mb-6 text-gray-800">Dashboard del Taller</h1>
+    <% if @workshop %>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h2 class="text-lg font-semibold text-gray-600">Motos en el Taller</h2>
+          <p class="text-4xl font-bold text-gray-900 mt-2"><%= @motorcycles_in_workshop %></p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h2 class="text-lg font-semibold text-gray-600">Intervenciones (este mes)</h2>
+          <p class="text-4xl font-bold text-green-600 mt-2"><%= @completed_interventions_month %></p>
+        </div>
+      </div>
+      <div>
+        <h2 class="text-2xl font-bold mb-4 text-gray-800">Actividad Reciente</h2>
+        <div class="bg-white shadow-lg rounded-lg">
+          <ul class="divide-y divide-gray-200">
+            <% @recent_activities.each do |intervention| %>
+              <li class="p-4 hover:bg-gray-50">
+                <%= link_to intervention_path(intervention) do %>
+                  <p class="font-semibold text-gray-800">Intervención #<%= intervention.id %> - Moto <%= intervention.motorcycle.license_plate %></p>
+                  <p class="text-sm text-gray-500">Estado: <%= intervention.status || 'En Progreso' %> - Creada el <%= intervention.created_at.strftime("%d/%m/%Y") %></p>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    <% else %>
+      <div class="text-center p-8 bg-white rounded-lg shadow-lg">
+        <h2 class="text-xl font-semibold text-gray-800">Aún no has creado tu taller.</h2>
+        <p class="text-gray-600 mt-2">Para empezar a gestionar tus motos y clientes, primero debes registrar tu taller.</p>
+        <%= link_to "Crear mi Taller", new_workshop_path, class: "mt-6 inline-block bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-6 rounded-lg" %>
+      </div>
+    <% end %>
+
+  <% else %>
+    <h1 class="text-3xl font-bold mb-6 text-gray-800">Bienvenido a TallerMotoApp</h1>
+    <p class="text-gray-700">Aquí verás tus tareas y asignaciones pronto.</p>
+  <% end %>
+
+</div>

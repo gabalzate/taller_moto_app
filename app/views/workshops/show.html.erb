@@ -19,21 +19,14 @@
     </p>
 
     <div class="mt-6 flex space-x-4">
-      <%= link_to 'Editar Taller', edit_workshop_path(@workshop), class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700" %>
-      <%= link_to 'Volver a la lista', workshops_path, class: "inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50" %>
+
+      <%= link_to 'Editar Taller', edit_workshop_path(@workshop), class: "bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded" %>
+
+      <%= link_to 'Eliminar Taller', @workshop, data: { turbo_method: :delete, turbo_confirm: '¿Estás seguro de que quieres eliminar este taller?' }, class: "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" %>
+
+      <%= link_to 'Volver a la lista', workshops_path, class: "bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded" %>
+
     </div>
-    
-
-    <div class="mt-6 flex space-x-4">
-      <%= link_to 'Editar Taller', edit_workshop_path(@workshop), class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700" %>
-
-      <%= link_to 'Eliminar Taller', workshop_path(@workshop), class: "inline-flex items-center px-4 py-2 border border-red-300 text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50", data: { turbo_method: :delete, turbo_confirm: '¿Estás seguro de que quieres eliminar este taller?' } %>
-
-      <%= link_to 'Volver a la lista', workshops_path, class: "inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50" %>
-    </div>
-
-
-
 
   </div>
 </div>

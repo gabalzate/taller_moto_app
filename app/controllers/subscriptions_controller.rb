@@ -52,10 +52,27 @@ class SubscriptionsController < ApplicationController
       # --- Punto clave para el futuro ---
       # Aquí es donde redirigiríamos a Wompi con los datos de la suscripción.
       # Por ahora, la marcaremos como activa para simular un pago exitoso.
-      @subscription.update(status: 'active')
-      redirect_to @subscription, notice: "¡Felicidades! Te has suscrito al plan #{@plan.name}."
+      #@subscription.update(status: 'active') <- Linea eliminada por falta de Wompi
+
+      # Redirigimos al usuario a su página de suscripciones con un mensaje informativo.
+      redirect_to subscriptions_path, notice: "Tu solicitud de suscripción ha sido recibida y está pendiente de aprobación."
     else
       render :new, status: :unprocessable_entity
     end
   end
+
+
+
+  def approve
+    @subscription = Subscription.find(params[:id])
+    authorize! :approve, @subscription # Asegura que solo el super admin pueda hacer esto
+
+    @subscription.update(status: 'active')
+
+    redirect_to subscriptions_path, notice: "La suscripción de #{@subscription.user.email} ha sido activada."
+  end
+
+
+
+
 end

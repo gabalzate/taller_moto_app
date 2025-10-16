@@ -33,7 +33,12 @@ Rails.application.routes.draw do
   end
 
   # Ruta para que los usuarios vean su suscripción
-  resources :subscriptions, only: [:index, :show]
+  resources :subscriptions, only: [:index, :show] do
+    member do
+      patch :approve
+    end
+  end
+
 
   resources :conversations, only: [:index, :show, :new, :create] do
     resources :messages, only: [:create], shallow: true

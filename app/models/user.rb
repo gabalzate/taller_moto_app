@@ -6,11 +6,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   # --- Relaciones ---
   # Relaciones para administradores
-  has_many :workshops
+  has_one :workshop, foreign_key: 'user_id', dependent: :destroy
   has_one :subscription
 
   # Relaciones para mecánicos
-  belongs_to :workshop, optional: true
+  belongs_to :workplace, class_name: 'Workshop', foreign_key: 'workshop_id', optional: true
   has_many :procedure_sheets
   has_many :entry_orders
   has_many :output_sheets
