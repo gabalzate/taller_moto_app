@@ -4,6 +4,7 @@ class MotorcyclesController < ApplicationController
   before_action :authenticate_user!
   # Esto aplica las reglas de CanCanCan y automáticamente busca la moto por su ID
   load_and_authorize_resource
+  skip_load_and_authorize_resource only: [:create_intervention]
 
   def index
     @motorcycles = Motorcycle.all
@@ -12,10 +13,25 @@ class MotorcyclesController < ApplicationController
   def show
     @motorcycle = Motorcycle.find(params[:id])
   end
+  
 
   def create_intervention
     @motorcycle = Motorcycle.find(params[:id])
-    @intervention = @motorcycle.interventions.new(workshop: current_user.workshop)
+
+    # Creamos la nueva intervención en memoria y le asignamos un estado y fecha de entrada.
+    @intervention = @motorcycle.interventions.new(
+      workshop: current_user.workshop, 
+      status: 'En Progreso', 
+      entry_date: Time.current
+    )
+
+    # --- LÍNEA AÑADIDA ---
+    # Le decimos explícitamente a CanCanCan que verifique si el usuario
+    # tiene permiso para :create sobre el nuevo objeto @intervention.
+    # La regla en ability.rb (can :manage, Intervention) permitirá que esto pase.
+    authorize! :create, @intervention
+    # --- FIN DE LA LÍNEA AÑADIDA ---
+
     if @intervention.save
       redirect_to new_intervention_entry_order_path(@intervention), notice: "Intervención iniciada con éxito. Por favor, complete la orden de entrada."
     else
@@ -26,6 +42,10 @@ class MotorcyclesController < ApplicationController
 
   def new
     @motorcycle = Motorcycle.new
+    # --- LÍNEA AÑADIDA ---
+    # Cargamos solo los clientes del taller del usuario actual para el formulario.
+    # Esto asegura que no pueda asignarle una moto a un cliente de otro taller.
+    @clients = current_user.workshop.clients
   end
 
   def create

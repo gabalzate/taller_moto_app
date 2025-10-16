@@ -17,11 +17,11 @@ class ClientsController < ApplicationController
   def create
     @client = Client.new(client_params)
     @client.user = current_user
-    @client.workshop = current_user.workshops.first # Asume que un admin tiene al menos un taller
+    @client.workshop = current_user.workshop
     if @client.save
       redirect_to @client, notice: 'Cliente creado exitosamente.'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 

@@ -1,0 +1,6 @@
+class AddPublicTokenToInterventions < ActiveRecord::Migration[8.0]
+  def change
+    add_column :interventions, :public_token, :string
+    add_index :interventions, :public_token, unique: true
+  end
+end

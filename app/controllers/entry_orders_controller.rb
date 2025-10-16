@@ -3,22 +3,22 @@ class EntryOrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_intervention
   load_and_authorize_resource :intervention
-  load_and_authorize_resource :entry_order
+  load_and_authorize_resource :entry_order, through: :intervention, singleton: true
 
   def new
     @entry_order = @intervention.build_entry_order
   end
 
 
-  # app/controllers/entry_orders_controller.rb
   def create
     @entry_order = @intervention.build_entry_order(entry_order_params)
     @entry_order.user = current_user
+
     if @entry_order.save
-      respond_to do |format|
-        format.html { redirect_to @intervention, notice: 'Orden de entrada creada exitosamente.' }
-        format.turbo_stream
-      end
+      # --- LÍNEA CORREGIDA ---
+      # Añadimos la redirección de vuelta a la página principal de la intervención.
+      # Turbo interceptará esta redirección y actualizará la página por ti.
+      redirect_to @intervention, notice: 'Orden de entrada creada exitosamente.'
     else
       render :new, status: :unprocessable_entity
     end

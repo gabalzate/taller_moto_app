@@ -21,8 +21,10 @@ class Ability
       # Estas reglas solo se aplican SI el usuario ya tiene un taller registrado.
       if user.workshop
         can :manage, Client, workshop_id: user.workshop.id
-        can :manage, Motorcycle, client: { workshop_id: user.workshop.id }
+        can [:new, :create], Motorcycle # 1. Permite al admin entrar al formulario para crear.
+        can [:read, :update, :destroy], Motorcycle, client: { workshop_id: user.workshop.id } # 2. Mantiene la seguridad para motos que ya existen.
         can :manage, Intervention, workshop_id: user.workshop.id
+        can :manage, [EntryOrder, ProcedureSheet, OutputSheet], intervention: { workshop_id: user.workshop.id }
         can :manage, Service, workshop_id: user.workshop.id
       end
       # ------------------------

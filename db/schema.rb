@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_20_003335) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_16_133118) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -100,7 +100,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_20_003335) do
     t.integer "workshop_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "public_token"
     t.index ["motorcycle_id"], name: "index_interventions_on_motorcycle_id"
+    t.index ["public_token"], name: "index_interventions_on_public_token", unique: true
     t.index ["workshop_id"], name: "index_interventions_on_workshop_id"
   end
 

@@ -31,10 +31,15 @@
     <%= form.label :year, class: "block text-sm font-medium text-gray-700" %>
     <%= form.number_field :year, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
   </div>
-  
+
+
+
   <div class="field">
     <%= form.label :client_id, "Propietario", class: "block text-sm font-medium text-gray-700" %>
-    <%= form.collection_select :client_id, Client.all, :id, :name, { prompt: 'Selecciona un propietario' }, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+
+    <%# --- LÍNEA MODIFICADA --- %>
+    <%# Cambiamos "Client.all" por "@clients" para usar la lista filtrada y segura del controlador. %>
+    <%= form.collection_select :client_id, @clients, :id, :name, { prompt: 'Selecciona un propietario' }, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
   </div>
 
   <div class="actions">

@@ -1,0 +1,38 @@
+<h1 class="text-3xl font-bold mb-2 text-gray-800">Seguimiento de tu Moto</h1>
+<p class="text-gray-600 mb-6">Placa: <%= @intervention.motorcycle.license_plate %></p>
+
+<div class="space-y-8">
+
+  <div class="bg-white shadow-lg rounded-lg p-6">
+    <h2 class="text-xl font-semibold text-gray-800">Información General</h2>
+    <hr class="my-3 border-gray-200">
+    <p><strong class="font-medium text-gray-900">Taller:</strong> <%= @intervention.workshop.name %></p>
+    <p><strong class="font-medium text-gray-900">Estado:</strong> <span class="font-semibold <%= @intervention.status == 'Completada' ? 'text-green-600' : 'text-blue-600' %>"><%= @intervention.status || 'En Progreso' %></span></p>
+  </div>
+
+  <% if @entry_order %>
+    <div class="bg-white shadow-lg rounded-lg p-6">
+      <h2 class="text-xl font-semibold text-gray-800 mb-3">Orden de Entrada</h2>
+      <%= render 'entry_orders/entry_order_details', entry_order: @entry_order %>
+    </div>
+  <% end %>
+
+  <% if @procedure_sheets.any? %>
+    <div class="bg-white shadow-lg rounded-lg p-6">
+      <h2 class="text-xl font-semibold text-gray-800 mb-3">Procedimientos Realizados</h2>
+      <div class="space-y-4">
+        <% @procedure_sheets.each do |procedure| %>
+          <%= render 'procedure_sheets/procedure_sheet_details', procedure: procedure %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @output_sheet %>
+    <div class="bg-white shadow-lg rounded-lg p-6">
+      <h2 class="text-xl font-semibold text-gray-800 mb-3">Hoja de Salida</h2>
+      <%= render 'output_sheets/output_sheet_details', output_sheet: @output_sheet %>
+    </div>
+  <% end %>
+
+</div>

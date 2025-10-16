@@ -14,6 +14,27 @@
       <p><strong class="font-medium text-gray-900">Fecha de salida:</strong> <%= @intervention.output_date.strftime("%d/%m/%Y %I:%M %p") %></p>
     <% end %>
   </div>
+
+
+  <!-- Este código lo incluyo para mostrar el enlace de la intervención a ser compartido con el cliente -->
+  
+  <div class="mt-4 pt-4 border-t border-gray-200" data-controller="clipboard">
+    <label class="block text-sm font-medium text-gray-700">Enlace público para el cliente:</label>
+    <div class="mt-1 flex rounded-md shadow-sm">
+      <input type="text" value="<%= public_intervention_url(@intervention.public_token) %>" data-clipboard-target="source" readonly class="block w-full rounded-none rounded-l-md border-gray-300 bg-gray-50 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+      <button type="button" data-action="clipboard#copy" class="relative -ml-px inline-flex items-center space-x-2 rounded-r-md border border-gray-300 bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200">
+        <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v3.043m-7.416 0v3.043c0 .212.03.418.084.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5v-9.574c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" />
+        </svg>
+        <span>Copiar</span>
+      </button>
+    </div>
+  </div>
+  </div> ```
+
+  <!-- Fin del bloque de código para mostrar enlace -->
+
+
 </div>
 
 <div class="border-b border-gray-200 mb-6">
