@@ -10,8 +10,16 @@ class InterventionsController < ApplicationController
     authorize! :read, @intervention
   end
 
+
   def index
-    @interventions = Intervention.all
+
+    # Verificamos si se envió un parámetro de búsqueda llamado 'query'.
+    if params[:query].present?
+      # Si hay una búsqueda, filtramos la colección @interventions.
+      # Usamos 'joins' para poder buscar en las tablas de motocicletas y clientes.
+      @interventions = @interventions.joins(motorcycle: :client)
+                                   .where("motorcycles.license_plate LIKE ? OR clients.document_number LIKE ?", "%#{params[:query]}%", "%#{params[:query]}%")
+    end
   end
 
 

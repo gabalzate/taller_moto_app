@@ -1,5 +1,14 @@
 <h1 class="text-2xl font-bold mb-4">Intervenciones</h1>
 
+<div class="mb-6 bg-white p-4 rounded-lg shadow">
+  <%= form_with url: interventions_path, method: :get, class: "flex items-center" do |form| %>
+    <%= form.label :query, "Buscar por Placa o Documento:", class: "sr-only" %>
+    <%= form.text_field :query, placeholder: "Buscar por Placa o Documento...", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+    <%= form.submit "Buscar", class: "ml-4 bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded cursor-pointer" %>
+  <% end %>
+</div>
+
+
 <div class="overflow-x-auto">
   <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
     <thead class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
