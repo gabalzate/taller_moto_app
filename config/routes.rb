@@ -24,7 +24,11 @@ Rails.application.routes.draw do
 
   #Rutas para el recurso workshop
   resources :clients
-  resources :workshops
+  
+  resources :workshops do
+    resources :mechanics
+  end
+
   resources :motorcycles do
     member do
       post 'create_intervention'

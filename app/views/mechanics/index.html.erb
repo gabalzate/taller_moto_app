@@ -1,0 +1,39 @@
+<%# app/views/mechanics/index.html.erb %>
+
+<div class="container mx-auto p-4">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold text-gray-800">Mecánicos de <%= @workshop.name %></h1>
+    <%= link_to 'Añadir Mecánico', new_workshop_mechanic_path(@workshop), class: "bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded" %>
+  </div>
+
+  <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+    <table class="min-w-full">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nombre</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Teléfono</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        <% @mechanics.each do |mechanic| %>
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap"><%= mechanic.first_name %> <%= mechanic.last_name %></td>
+            <td class="px-6 py-4 whitespace-nowrap"><%= mechanic.email %></td>
+            <td class="px-6 py-4 whitespace-nowrap"><%= mechanic.phone_number %></td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+              <%# Aquí irán los botones de Editar y Eliminar en el futuro %>
+              <%= link_to 'Ver', workshop_mechanic_path(@workshop, mechanic), class: "text-indigo-600 hover:text-indigo-900" %>
+            </td>
+          </tr>
+        <% end %>
+        <% if @mechanics.empty? %>
+          <tr>
+            <td colspan="4" class="px-6 py-4 text-center text-gray-500">Aún no has añadido mecánicos.</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

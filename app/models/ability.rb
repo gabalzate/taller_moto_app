@@ -26,6 +26,10 @@ class Ability
         can :manage, Intervention, workshop_id: user.workshop.id
         can :manage, [EntryOrder, ProcedureSheet, OutputSheet], intervention: { workshop_id: user.workshop.id }
         can :manage, Service, workshop_id: user.workshop.id
+        # Permite al admin gestionar usuarios (CRUD) que sean mecánicos
+        # y que pertenezcan ('workshop_id') a su propio taller.
+        can :create, User # 1. Permite al admin INICIAR la creación de cualquier usuario para su taller.
+        can [:read, :update, :destroy], User, workshop_id: user.workshop.id, is_mechanic: true # 2. Mantiene la seguridad para mecánicos que ya existen.
       end
       # ------------------------
 
