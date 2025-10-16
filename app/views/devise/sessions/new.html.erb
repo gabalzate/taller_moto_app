@@ -1,26 +1,58 @@
-<h2>Log in</h2>
+<%# app/views/devise/sessions/new.html.erb %>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+<div class="flex items-center justify-center min-h-screen bg-gray-50 px-4 sm:px-6 lg:px-8">
+  <div class="w-full max-w-md space-y-8">
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+    <%# --- Título del Formulario --- %>
+    <div>
+      <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+        Inicia sesión en tu cuenta
+      </h2>
     </div>
-  <% end %>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
+    <%# --- Formulario de Inicio de Sesión --- %>
+    <div class="bg-white shadow-lg rounded-xl p-8 space-y-6">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        
+        <%# --- Campo de Email --- %>
+        <div class="field">
+          <%= f.label :email, class: "block text-sm font-medium text-gray-700" %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+        </div>
+
+        <%# --- Campo de Contraseña --- %>
+        <div class="field">
+          <%= f.label :password, "Contraseña", class: "block text-sm font-medium text-gray-700" %><br />
+          <%= f.password_field :password, autocomplete: "current-password", class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+        </div>
+
+        <%# --- Checkbox de "Recordarme" --- %>
+        <% if devise_mapping.rememberable? %>
+          <div class="field flex items-center">
+            <%= f.check_box :remember_me, class: "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" %>
+            <%= f.label :remember_me, "Recordarme", class: "ml-2 block text-sm text-gray-900" %>
+          </div>
+        <% end %>
+
+        <%# --- Botón de Enviar --- %>
+        <div class="actions">
+          <%= f.submit "Iniciar sesión", class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-amber-600 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 cursor-pointer" %>
+        </div>
+      <% end %>
+    </div>
+
+    <%# --- Enlaces Secundarios (Aquí va tu nuevo enlace) --- %>
+    <div class="text-center text-sm">
+      <p class="text-gray-600">
+        <%# Enlace a la Hoja de Vida de la Moto %>
+        <%= link_to 'Consultar historial de mi moto', public_motorcycle_history_search_path, class: "font-medium text-indigo-600 hover:text-indigo-500" %>
+      </p>
+      
+      <%# Renderiza los enlaces por defecto de Devise ("Registrarse", "¿Olvidaste contraseña?", etc.) %>
+      <div class="mt-2">
+        <%= render "devise/shared/links" %>
+      </div>
+    </div>
+
   </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

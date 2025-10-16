@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   namespace :public do
     resources :interventions, only: [:show], param: :token
+
+    # --- REEMPLAZA LAS RUTAS ANTERIORES POR ESTAS ---
+    # 1. Ruta para MOSTRAR el formulario de búsqueda.
+    get 'motorcycle_history/search', to: 'motorcycles#search', as: :motorcycle_history_search
+    # 2. Ruta para PROCESAR la búsqueda y mostrar el resultado.
+    get 'motorcycle_history/result', to: 'motorcycles#result', as: :motorcycle_history_result
   end
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
