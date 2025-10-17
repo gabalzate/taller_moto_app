@@ -1,0 +1,2 @@
+module Public::MechanicsHelper
+end

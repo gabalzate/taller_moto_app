@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   # --- RUTA PERSONALIZADA PARA EL PERFIL DEL TALLER ---
   # Esto crea la URL /taller/nombre-del-taller
   get '/taller/:id', to: 'public/workshops#show', as: :public_workshop
+
+  # Ruta personalizada para el perfil público del mecánico
+  get '/perfil/:id', to: 'public/mechanics#show', as: :public_mechanic_profile
   
 
   devise_for :users

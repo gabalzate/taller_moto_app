@@ -22,10 +22,19 @@ class User < ApplicationRecord
   has_many :super_admin_conversations, class_name: 'Conversation', foreign_key: 'super_admin_id'
   has_many :messages, foreign_key: 'sender_id'
 
+  extend FriendlyId
+  # Genera la URL a partir de la combinación de nombre y apellido.
+  friendly_id :full_name, use: :slugged
+
+  # Un método simple para combinar nombre y apellido.
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
   # Relación con clientes
   has_many :clients
   
   # --- Validaciones ---
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :document_number, presence: true, uniqueness: true
-end# app/models/user.rb
+end

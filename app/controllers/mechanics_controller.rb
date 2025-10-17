@@ -33,26 +33,21 @@ class MechanicsController < ApplicationController
     end
   end
 
-  # Aquí irían las acciones para show, edit, update, y destroy en el futuro.
-  
-
+ 
   def show
-    # Buscamos el mecánico que pertenece al taller actual.
-    @mechanic = @workshop.users.find(params[:id])
-    # Autoriza que el admin pueda leer los detalles de este mecánico.
+    # Usamos '.friendly.find' para buscar por slug (texto) o por ID.
+    @mechanic = @workshop.users.friendly.find(params[:id])
     authorize! :read, @mechanic
   end
 
-  # Prepara el formulario para editar un mecánico existente.
   def edit
-    @mechanic = @workshop.users.find(params[:id])
+    @mechanic = @workshop.users.friendly.find(params[:id])
     authorize! :update, @mechanic
   end
 
-  # Procesa los cambios del formulario de edición.
   def update
-    @mechanic = @workshop.users.find(params[:id])
-      authorize! :update, @mechanic
+    @mechanic = @workshop.users.friendly.find(params[:id])
+    authorize! :update, @mechanic
 
     if @mechanic.update(mechanic_params)
       redirect_to workshop_mechanics_path(@workshop), notice: 'Mecánico actualizado exitosamente.'
@@ -61,11 +56,10 @@ class MechanicsController < ApplicationController
     end
   end
 
-  # Elimina un mecánico de la base de datos.
   def destroy
-    @mechanic = @workshop.users.find(params[:id])
+    @mechanic = @workshop.users.friendly.find(params[:id])
     authorize! :destroy, @mechanic
-
+    
     @mechanic.destroy
     redirect_to workshop_mechanics_path(@workshop), notice: 'Mecánico eliminado exitosamente.'
   end
