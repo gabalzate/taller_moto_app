@@ -1,0 +1,79 @@
+<%# app/views/public/workshops/show.html.erb %>
+
+<div class="max-w-4xl mx-auto">
+  <div class="relative bg-white shadow-lg rounded-lg overflow-hidden mb-8">
+    <% if @workshop.main_image.attached? %>
+      <%= image_tag @workshop.main_image, class: "w-full h-48 object-cover" %>
+    <% else %>
+      <div class="w-full h-48 bg-gray-200"></div>
+    <% end %>
+    <div class="absolute top-24 left-8 flex items-center">
+      <% if @workshop.logo.attached? %>
+        <%= image_tag @workshop.logo, class: "h-24 w-24 rounded-full border-4 border-white object-cover" %>
+      <% else %>
+        <div class="h-24 w-24 rounded-full border-4 border-white bg-gray-300 flex items-center justify-center">
+          <span class="text-gray-500 text-xs">Sin Logo</span>
+        </div>
+      <% end %>
+      <h1 class="text-3xl font-bold text-gray-800 ml-4"><%= @workshop.name %></h1>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="md:col-span-1 space-y-6">
+      <div class="bg-white shadow-lg rounded-lg p-6">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Información de Contacto</h2>
+        <dl class="space-y-2 text-gray-600">
+          <div>
+            <dt class="font-medium text-gray-900">Dirección</dt>
+            <dd><%= @workshop.address %>, <%= @workshop.city %></dd>
+          </div>
+          <div>
+            <dt class="font-medium text-gray-900">Teléfono</dt>
+            <dd><%= @workshop.phone %></dd>
+          </div>
+          <div>
+            <dt class="font-medium text-gray-900">Horario</dt>
+            <dd><%= @workshop.opening_hours %></dd>
+          </div>
+        </dl>
+      </div>
+      
+      <div class="bg-white shadow-lg rounded-lg p-6">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Nuestro Trabajo</h2>
+        <div class="space-y-4">
+          <div>
+            <p class="text-4xl font-bold text-indigo-600"><%= @total_interventions %></p>
+            <p class="text-sm font-medium text-gray-500">Motos Atendidas</p>
+          </div>
+          <div>
+            <h3 class="font-medium text-gray-900">Top 5 Modelos</h3>
+            <ul class="list-disc list-inside text-gray-600 mt-2">
+              <% @top_motorcycles.each do |(brand, model), count| %>
+                <li><%= brand %> <%= model %> (<%= count %>)</li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="md:col-span-2 bg-white shadow-lg rounded-lg p-6">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Catálogo de Servicios</h2>
+      <ul class="divide-y divide-gray-200">
+        <% @services.each do |service| %>
+          <li class="py-3 flex justify-between items-center">
+            <div>
+              <p class="font-medium text-gray-900"><%= service.name %></p>
+              <p class="text-sm text-gray-500"><%= service.description %></p>
+            </div>
+            <p class="font-semibold text-gray-800">$<%= number_to_currency(service.price, unit: "", separator: ".", delimiter: ",") %></p>
+          </li>
+        <% end %>
+        <% if @services.empty? %>
+          <li class="py-3 text-center text-gray-500">Este taller aún no ha publicado sus servicios.</li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

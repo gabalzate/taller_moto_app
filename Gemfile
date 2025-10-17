@@ -68,3 +68,5 @@ end
 gem 'devise'
 # Gemfile cancancan, para manejar permisos de los usuarios
 gem 'cancancan'
+
+gem 'friendly_id', '~> 5.4'

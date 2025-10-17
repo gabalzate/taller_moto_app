@@ -1,7 +1,10 @@
 # app/controllers/workshops_controller.rb
 class WorkshopsController < ApplicationController
   before_action :authenticate_user!
-  load_and_authorize_resource
+  load_and_authorize_resource find_by: :slug
+
+  # Este se ejecuta antes de las acciones y carga el taller usando FriendlyId.
+  before_action :set_workshop_with_friendly, only: [:show, :edit, :update, :destroy]
 
   # Este 'before_action' se asegura de que nadie pueda acceder a las páginas 'new' o 'create'
   # si ya tienen un taller registrado.
@@ -56,6 +59,12 @@ class WorkshopsController < ApplicationController
   end
 
   private
+
+  def set_workshop_with_friendly
+    # Usamos .friendly.find para buscar el taller por su slug (o ID).
+    # El resultado se guarda en la variable de instancia @workshop.
+    @workshop = Workshop.friendly.find(params[:id])
+  end
 
   def workshop_params
     params.require(:workshop).permit(:name, :phone, :city, :address, :details, :opening_hours, :unique_profile_link, :status)

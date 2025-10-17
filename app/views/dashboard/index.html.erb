@@ -19,7 +19,15 @@
     </div>
 
   <% elsif current_user.is_admin? %>
-    <h1 class="text-3xl font-bold mb-6 text-gray-800">Dashboard del Taller</h1>
+
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-3xl font-bold text-gray-800">Dashboard del Taller</h1>
+      <%# Enlace para ver el perfil público del taller, si existe %>
+      <% if @workshop %>
+        <%= link_to 'Ver mi Perfil Público', public_workshop_path(@workshop), class: "text-indigo-600 hover:text-indigo-800 font-semibold", target: "_blank" %>
+      <% end %>
+    </div>
+
     <% if @workshop %>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <div class="bg-white p-6 rounded-lg shadow-lg">

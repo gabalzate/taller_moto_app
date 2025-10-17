@@ -1,5 +1,12 @@
 # app/models/workshop.rb
 class Workshop < ApplicationRecord
+
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
+  has_one_attached :logo
+  has_one_attached :main_image
+
   # Un taller pertenece a un usuario (el administrador)
   belongs_to :user
 

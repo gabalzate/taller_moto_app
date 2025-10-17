@@ -1,13 +1,17 @@
 Rails.application.routes.draw do
   namespace :public do
     resources :interventions, only: [:show], param: :token
+    #resources :workshops, only: [:show]   #Comentado para cambiar formato de enlace de talleres
 
-    # --- REEMPLAZA LAS RUTAS ANTERIORES POR ESTAS ---
     # 1. Ruta para MOSTRAR el formulario de búsqueda.
     get 'motorcycle_history/search', to: 'motorcycles#search', as: :motorcycle_history_search
     # 2. Ruta para PROCESAR la búsqueda y mostrar el resultado.
     get 'motorcycle_history/result', to: 'motorcycles#result', as: :motorcycle_history_result
   end
+
+  # --- RUTA PERSONALIZADA PARA EL PERFIL DEL TALLER ---
+  # Esto crea la URL /taller/nombre-del-taller
+  get '/taller/:id', to: 'public/workshops#show', as: :public_workshop
   
 
   devise_for :users
