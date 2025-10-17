@@ -7,7 +7,6 @@ class MotorcyclesController < ApplicationController
   skip_load_and_authorize_resource only: [:create_intervention]
 
   def index
-    @motorcycles = Motorcycle.all
   end
 
   def show

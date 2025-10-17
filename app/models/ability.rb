@@ -56,6 +56,7 @@ class Ability
       can :create, Message
       can :read, Message, conversation: { user_id: user.id }
       can :create, Conversation, user_id: user.id
+      can :read, Conversation, user_id: user.id
       can :read, :dashboard
 
 
