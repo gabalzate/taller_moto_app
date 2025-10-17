@@ -16,6 +16,12 @@ class Intervention < ApplicationRecord
   # Una intervención pertenece a una moto y a un taller
   belongs_to :motorcycle
   belongs_to :workshop
+  
+
+  # Una intervención puede tener un mecánico asignado.
+  # Usamos 'class_name' porque el modelo es 'User', no 'Mechanic'.
+  # 'optional: true' permite que una intervención no tenga mecánico asignado.
+  belongs_to :mechanic, class_name: 'User', foreign_key: 'mechanic_id', optional: true
 
   # Una intervención tiene una orden de entrada
   has_one :entry_order

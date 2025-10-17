@@ -14,6 +14,8 @@ class User < ApplicationRecord
   has_many :procedure_sheets
   has_many :entry_orders
   has_many :output_sheets
+  # Un usuario (mecánico) puede tener muchas intervenciones asignadas.
+  has_many :assigned_interventions, class_name: 'Intervention', foreign_key: 'mechanic_id'
 
   # Relaciones con el sistema de chat y mensajería
   has_many :conversations

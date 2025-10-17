@@ -6,7 +6,8 @@ class InterventionsController < ApplicationController
   def show
     @entry_order = @intervention.entry_order
     @procedure_sheets = @intervention.procedure_sheets.order(created_at: :desc) # Ordenamos para ver el más reciente primero
-    @output_sheet = @intervention.output_sheet 
+    @output_sheet = @intervention.output_sheet
+    @mechanics_for_select = current_user.workshop.users.where(is_mechanic: true)
     authorize! :read, @intervention
   end
 
@@ -50,6 +51,19 @@ class InterventionsController < ApplicationController
   def destroy
     @intervention.destroy
     redirect_to interventions_url, notice: 'Intervención eliminada exitosamente.'
+  end
+
+
+  # Acción para asignar o reasignar un mecánico a una intervención.
+  def assign_mechanic
+    @intervention = Intervention.find(params[:id])
+    authorize! :update, @intervention # El admin ya tiene este permiso
+
+    if @intervention.update(mechanic_id: params[:mechanic_id])
+      redirect_to @intervention, notice: 'Mecánico asignado exitosamente.'
+    else
+      redirect_to @intervention, alert: 'No se pudo asignar el mecánico.'
+    end
   end
 
 

@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     # 2. Ruta para PROCESAR la búsqueda y mostrar el resultado.
     get 'motorcycle_history/result', to: 'motorcycles#result', as: :motorcycle_history_result
   end
+  
+
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -27,6 +29,7 @@ Rails.application.routes.draw do
   
   resources :workshops do
     resources :mechanics
+    resources :services
   end
 
   resources :motorcycles do
@@ -36,6 +39,9 @@ Rails.application.routes.draw do
   end
 
   resources :interventions do
+    member do
+      patch :assign_mechanic
+    end
     resources :entry_orders, only: [:new, :create, :show, :edit, :update]
     resources :procedure_sheets, only: [:new, :create, :show, :edit, :update]
     resources :output_sheets, only: [:new, :create, :show, :edit, :update]

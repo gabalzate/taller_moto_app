@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_16_133118) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_17_030402) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -101,6 +101,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_16_133118) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "public_token"
+    t.integer "mechanic_id"
+    t.index ["mechanic_id"], name: "index_interventions_on_mechanic_id"
     t.index ["motorcycle_id"], name: "index_interventions_on_motorcycle_id"
     t.index ["public_token"], name: "index_interventions_on_public_token", unique: true
     t.index ["workshop_id"], name: "index_interventions_on_workshop_id"
@@ -231,6 +233,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_16_133118) do
   add_foreign_key "entry_orders", "interventions"
   add_foreign_key "entry_orders", "users"
   add_foreign_key "interventions", "motorcycles"
+  add_foreign_key "interventions", "users", column: "mechanic_id"
   add_foreign_key "interventions", "workshops"
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users", column: "sender_id"
