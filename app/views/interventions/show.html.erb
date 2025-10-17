@@ -1,111 +1,87 @@
-<h1 class="text-3xl font-bold mb-6 text-gray-800">Detalles de la Intervención #<%= @intervention.id %></h1>
+<%# --- 1. Contenedor principal que se conecta al controlador de Stimulus --- %>
+<div data-controller="tabs">
 
-<div class="bg-white shadow-lg rounded-lg p-6 mb-6">
-  <h2 class="text-xl font-semibold text-gray-800">Información General</h2>
-  <hr class="my-3 border-gray-200">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
-    <p><strong class="font-medium text-gray-900">Motocicleta:</strong> <%= @intervention.motorcycle.license_plate %></p>
-    <p><strong class="font-medium text-gray-900">Taller:</strong> <%= @intervention.workshop.name %></p>
-    <p><strong class="font-medium text-gray-900">Estado:</strong> <span class="font-semibold <%= @intervention.status == 'Completada' ? 'text-green-600' : 'text-blue-600' %>"><%= @intervention.status || 'En Progreso' %></span></p>
-    <% if @intervention.entry_date %>
-      <p><strong class="font-medium text-gray-900">Fecha de entrada:</strong> <%= @intervention.entry_date.strftime("%d/%m/%Y %I:%M %p") %></p>
-    <% end %>
-    <% if @intervention.output_date %>
-      <p><strong class="font-medium text-gray-900">Fecha de salida:</strong> <%= @intervention.output_date.strftime("%d/%m/%Y %I:%M %p") %></p>
-    <% end %>
-  </div>
+  <h1 class="text-3xl font-bold mb-6 text-gray-800">Detalles de la Intervención #<%= @intervention.id %></h1>
 
-
-  <!-- Este código lo incluyo para mostrar el enlace de la intervención a ser compartido con el cliente -->
-  
-  <div class="mt-4 pt-4 border-t border-gray-200" data-controller="clipboard">
-    <label class="block text-sm font-medium text-gray-700">Enlace público para el cliente:</label>
-    <div class="mt-1 flex rounded-md shadow-sm">
-      <input type="text" value="<%= public_intervention_url(@intervention.public_token) %>" data-clipboard-target="source" readonly class="block w-full rounded-none rounded-l-md border-gray-300 bg-gray-50 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-      <button type="button" data-action="clipboard#copy" class="relative -ml-px inline-flex items-center space-x-2 rounded-r-md border border-gray-300 bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200">
-        <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v3.043m-7.416 0v3.043c0 .212.03.418.084.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5v-9.574c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" />
-        </svg>
-        <span>Copiar</span>
-      </button>
+  <%# Este bloque de Información General se queda exactamente igual, incluyendo tu controlador de clipboard %>
+  <div class="bg-white shadow-lg rounded-lg p-6 mb-6">
+    <h2 class="text-xl font-semibold text-gray-800">Información General</h2>
+    <hr class="my-3 border-gray-200">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
+      <p><strong class="font-medium text-gray-900">Motocicleta:</strong> <%= @intervention.motorcycle.license_plate %></p>
+      <p><strong class="font-medium text-gray-900">Taller:</strong> <%= @intervention.workshop.name %></p>
+      <p><strong class="font-medium text-gray-900">Estado:</strong> <span class="font-semibold <%= @intervention.status == 'Completada' ? 'text-green-600' : 'text-blue-600' %>"><%= @intervention.status || 'En Progreso' %></span></p>
+      <% if @intervention.entry_date %>
+        <p><strong class="font-medium text-gray-900">Fecha de entrada:</strong> <%= @intervention.entry_date.strftime("%d/%m/%Y %I:%M %p") %></p>
+      <% end %>
+      <% if @intervention.output_date %>
+        <p><strong class="font-medium text-gray-900">Fecha de salida:</strong> <%= @intervention.output_date.strftime("%d/%m/%Y %I:%M %p") %></p>
+      <% end %>
     </div>
-  </div>
-  </div> ```
-
-  <!-- Fin del bloque de código para mostrar enlace -->
-
-
-</div>
-
-<div class="border-b border-gray-200 mb-6">
-  <nav class="-mb-px flex space-x-8" aria-label="Tabs">
-    <a href="#orden-de-entrada" class="tab-link border-indigo-500 text-indigo-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Orden de Entrada</a>
-    <a href="#hoja-de-procedimientos" class="tab-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Hoja de Procedimientos</a>
-    <a href="#hoja-de-salida" class="tab-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Hoja de Salida</a>
-  </nav>
-</div>
-
-<div>
-  <div id="orden-de-entrada" class="tab-content">
-    <h2 class="text-2xl font-bold mb-4 text-gray-800">Orden de Entrada</h2>
-    <% if @entry_order %>
-      <%= render 'entry_orders/entry_order_details', entry_order: @entry_order %>
-    <% else %>
-      <p class="text-gray-500">No hay una Orden de Entrada asociada a esta intervención.</p>
-    <% end %>
-  </div>
-
-  <div id="hoja-de-procedimientos" class="tab-content hidden">
-    <div class="flex justify-between items-center mb-4">
-      <h2 class="text-2xl font-bold text-gray-800">Hoja de Procedimientos</h2>
-      <%= link_to 'Añadir Procedimiento', new_intervention_procedure_sheet_path(@intervention), class: "bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer" %>
-    </div>
-    <% if @procedure_sheets.any? %>
-      <div class="space-y-4">
-        <% @procedure_sheets.each do |procedure| %>
-          <%= render 'procedure_sheets/procedure_sheet_details', procedure: procedure %>
-        <% end %>
+    <div class="mt-4 pt-4 border-t border-gray-200" data-controller="clipboard">
+      <label class="block text-sm font-medium text-gray-700">Enlace público para el cliente:</label>
+      <div class="mt-1 flex rounded-md shadow-sm">
+        <input type="text" value="<%= public_intervention_url(@intervention.public_token) %>" data-clipboard-target="source" readonly class="block w-full rounded-none rounded-l-md border-gray-300 bg-gray-50 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <button type="button" data-action="clipboard#copy" class="relative -ml-px inline-flex items-center space-x-2 rounded-r-md border border-gray-300 bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200">
+          <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v3.043m-7.416 0v3.043c0 .212.03.418.084.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5v-9.574c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" />
+          </svg>
+          <span>Copiar</span>
+        </button>
       </div>
-    <% else %>
-      <p class="text-gray-500">Aún no hay procedimientos registrados.</p>
-    <% end %>
+    </div>
   </div>
 
-  <div id="hoja-de-salida" class="tab-content hidden">
-    <h2 class="text-2xl font-bold mb-4 text-gray-800">Hoja de Salida</h2>
-    <% if @output_sheet %>
-      <%= render 'output_sheets/output_sheet_details', output_sheet: @output_sheet %>
-    <% else %>
-      <p class="text-gray-500">Aún no se ha generado la Hoja de Salida.</p>
-      <%= link_to 'Crear Hoja de Salida', new_intervention_output_sheet_path(@intervention), class: "mt-4 bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer" %>
-    <% end %>
+  <div class="border-b border-gray-200 mb-6">
+    <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+      <%# --- 2. Añadimos los atributos 'data-tabs-target' y 'data-action' a cada enlace --- %>
+      <a href="#orden-de-entrada" data-tabs-target="tab" data-action="click->tabs#switch" class="tab-link border-indigo-500 text-indigo-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Orden de Entrada</a>
+      <a href="#hoja-de-procedimientos" data-tabs-target="tab" data-action="click->tabs#switch" class="tab-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Hoja de Procedimientos</a>
+      <a href="#hoja-de-salida" data-tabs-target="tab" data-action="click->tabs#switch" class="tab-link border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Hoja de Salida</a>
+    </nav>
   </div>
+
+  <div>
+    <%# --- 3. Añadimos el atributo 'data-tabs-target="panel"' a cada panel de contenido --- %>
+    <div id="orden-de-entrada" data-tabs-target="panel" class="tab-content">
+      <h2 class="text-2xl font-bold mb-4 text-gray-800">Orden de Entrada</h2>
+      <% if @entry_order %>
+        <%= render 'entry_orders/entry_order_details', entry_order: @entry_order %>
+      <% else %>
+        <p class="text-gray-500">No hay una Orden de Entrada asociada a esta intervención.</p>
+      <% end %>
+    </div>
+
+    <div id="hoja-de-procedimientos" data-tabs-target="panel" class="tab-content hidden">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold text-gray-800">Hoja de Procedimientos</h2>
+        <%= link_to 'Añadir Procedimiento', new_intervention_procedure_sheet_path(@intervention), class: "bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer" %>
+      </div>
+      <% if @procedure_sheets.any? %>
+        <div class="space-y-4">
+          <% @procedure_sheets.each do |procedure| %>
+            <%= render 'procedure_sheets/procedure_sheet_details', procedure: procedure %>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-gray-500">Aún no hay procedimientos registrados.</p>
+      <% end %>
+    </div>
+
+    <div id="hoja-de-salida" data-tabs-target="panel" class="tab-content hidden">
+      <h2 class="text-2xl font-bold mb-4 text-gray-800">Hoja de Salida</h2>
+      <% if @output_sheet %>
+        <%= render 'output_sheets/output_sheet_details', output_sheet: @output_sheet %>
+      <% else %>
+        <p class="text-gray-500">Aún no se ha generado la Hoja de Salida.</p>
+        <%= link_to 'Crear Hoja de Salida', new_intervention_output_sheet_path(@intervention), class: "mt-4 bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer" %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mt-8 border-t pt-6 flex space-x-4">
+    <%= link_to 'Volver a la lista', interventions_path, class: "inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50" %>
+  </div>
+
+  <%# --- 4. Hemos eliminado el bloque <script> que tenías aquí --- %>
 </div>
-
-<div class="mt-8 border-t pt-6 flex space-x-4">
-  <%= link_to 'Volver a la lista', interventions_path, class: "inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50" %>
-</div>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const tabs = document.querySelectorAll('.tab-link');
-    const sections = document.querySelectorAll('.tab-content');
-
-    tabs.forEach(tab => {
-      tab.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = e.target.getAttribute('href').substring(1);
-
-        sections.forEach(section => section.classList.add('hidden'));
-        tabs.forEach(t => {
-          t.classList.remove('border-indigo-500', 'text-indigo-600');
-          t.classList.add('border-transparent', 'text-gray-500');
-        });
-
-        document.getElementById(targetId).classList.remove('hidden');
-        e.target.classList.add('border-indigo-500', 'text-indigo-600');
-        e.target.classList.remove('border-transparent', 'text-gray-500');
-      });
-    });
-  });
-</script>

@@ -15,38 +15,62 @@ class MotorcyclesController < ApplicationController
   end
   
 
+
+
   def create_intervention
     @motorcycle = Motorcycle.find(params[:id])
 
-    # Creamos la nueva intervención en memoria y le asignamos un estado y fecha de entrada.
+    # --- LÓGICA CORREGIDA Y MÁS ROBUSTA ---
+    # Primero, determinamos cuál es el taller correcto según el rol del usuario.
+    target_workshop = if current_user.is_admin?
+                        current_user.workshop
+                      elsif current_user.is_mechanic?
+                        current_user.workplace
+                      end
+
+      # Si por alguna razón no se encuentra un taller, detenemos el proceso.
+    unless target_workshop
+      redirect_to @motorcycle, alert: "No se pudo determinar el taller para iniciar la intervención."
+      return
+    end
+    # --- FIN DE LA CORRECCIÓN ---
+
+    # Creamos la nueva intervención usando el taller correcto que encontramos.
     @intervention = @motorcycle.interventions.new(
-      workshop: current_user.workshop, 
-      status: 'En Progreso', 
+      workshop: target_workshop,
+      status: 'En Progreso',
       entry_date: Time.current
     )
 
-    # --- LÍNEA AÑADIDA ---
-    # Le decimos explícitamente a CanCanCan que verifique si el usuario
-    # tiene permiso para :create sobre el nuevo objeto @intervention.
-    # La regla en ability.rb (can :manage, Intervention) permitirá que esto pase.
+    # Ahora, la autorización SÍ funcionará porque @intervention tendrá el workshop_id correcto.
     authorize! :create, @intervention
-    # --- FIN DE LA LÍNEA AÑADIDA ---
 
     if @intervention.save
       redirect_to new_intervention_entry_order_path(@intervention), notice: "Intervención iniciada con éxito. Por favor, complete la orden de entrada."
     else
-      redirect_to @motorcycle, alert: "No se pudo iniciar la intervención."
+      redirect_to @motorcycle, alert: "No se pudo iniciar la intervención. #{@intervention.errors.full_messages.to_sentence}"
     end
   end
 
 
+
   def new
     @motorcycle = Motorcycle.new
-    # --- LÍNEA AÑADIDA ---
-    # Cargamos solo los clientes del taller del usuario actual para el formulario.
-    # Esto asegura que no pueda asignarle una moto a un cliente de otro taller.
-    @clients = current_user.workshop.clients
+
+    # --- LÓGICA CORREGIDA PARA AMBOS ROLES ---
+    # Verificamos el rol del usuario para encontrar la lista de clientes correcta.
+    if current_user.is_admin?
+      # Si es admin, busca clientes a través de su 'workshop'.
+      @clients = current_user.workshop.clients
+    elsif current_user.is_mechanic?
+      # Si es mecánico, busca clientes a través de su 'workplace'.
+      @clients = current_user.workplace.clients
+    else
+      # Si no es ninguno, la lista estará vacía por seguridad.
+      @clients = []
+    end
   end
+
 
   def create
     @motorcycle = Motorcycle.new(motorcycle_params)

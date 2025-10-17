@@ -4,7 +4,6 @@ class ClientsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @clients = Client.all
   end
 
   def show
@@ -17,7 +16,16 @@ class ClientsController < ApplicationController
   def create
     @client = Client.new(client_params)
     @client.user = current_user
-    @client.workshop = current_user.workshop
+    # Verificamos el rol del usuario para encontrar el taller correcto.
+    if current_user.is_admin?
+      # Si es admin, usamos la relación 'workshop' (has_one).
+      @client.workshop = current_user.workshop 
+    elsif current_user.is_mechanic?
+      # Si es mecánico, usamos la relación 'workplace' (belongs_to).
+      @client.workshop = current_user.workplace
+    end
+    
+
     if @client.save
       redirect_to @client, notice: 'Cliente creado exitosamente.'
     else
