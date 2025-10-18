@@ -1,0 +1,114 @@
+<%# app/views/pages/home.html.erb %>
+
+<div class="bg-white text-gray-800">
+
+  <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-200">
+    <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+      <a href="#" class="font-bold text-xl text-gray-900">Moto Mecánico</a>
+      <div>
+        <%= link_to 'Iniciar Sesión', new_user_session_path, class: "font-semibold text-gray-600 hover:text-amber-600 mr-6" %>
+        <%= link_to 'Regístrate Gratis', new_user_registration_path, class: "bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded-lg shadow" %>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <%# --- SECCIÓN DE ENCABEZADO (padding reducido) --- %>
+    <div class="container mx-auto px-6 py-16 md:py-20"> <%# Cambio: py-24 a py-20 para menos espacio %>
+      <header class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div class="text-center md:text-left">
+          <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight">
+            Convierte tu taller en el <span class="text-amber-600">ÚNICO</span> al que tus clientes quieran ir
+          </h1>
+          <p class="mt-6 text-lg text-gray-600 max-w-xl mx-auto md:mx-0">
+            Con MotoMecanico, digitaliza tus operaciones, comparte el progreso de las reparaciones en tiempo real y dale a tus clientes la transparencia que los hará volver.
+          </p>
+          <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+            <%= link_to 'Regístrate Ahora', new_user_registration_path, class: "w-full sm:w-auto text-center bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg text-lg transform hover:scale-105 transition-transform" %>
+          </div>
+        </div>
+        <div class="flex justify-center">
+          <%= image_tag 'moto_mecanico_logo.png', alt: 'Mecánico de motos en pixel art', class: "rounded-lg" %>
+        </div>
+      </header>
+    </div>
+
+    <%# --- SECCIÓN DE HERRAMIENTAS (padding reducido y fondo más oscuro) --- %>
+    <section class="bg-gray-100 py-20"> <%# Cambio: bg-gray-50 a bg-gray-100 y py-24 a py-20 %>
+      <div class="container mx-auto px-6">
+        <div class="max-w-xl mx-auto text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Herramientas diseñadas para tu taller</h2>
+          <p class="mt-4 text-gray-600">Nos enfocamos en solucionar los problemas que realmente importan.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          <%# ... (las 3 tarjetas de herramientas se quedan igual) ... %>
+          <div class="bg-white p-6 rounded-lg shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+            <div class="flex justify-center mb-4">
+              <%= image_tag 'icono-historial.png', alt: 'Icono de historial digital', class: "h-16 w-16 object-contain" %>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900">Historial Digital Anti-Reclamos</h3>
+            <p class="mt-2 text-gray-600">
+              Nunca más tendrás un cliente diciéndote que "la moto así no estaba". Lleva el historial completo de cada moto desde que llega a tu taller hasta que sale, con fotos y descripciones detalladas.
+            </p>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+            <div class="flex justify-center mb-4">
+              <%= image_tag 'icono-confianza.png', alt: 'Icono de confianza en tiempo real', class: "h-16 w-16 object-contain" %>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900">Confianza en Tiempo Real</h3>
+            <p class="mt-2 text-gray-600">
+              Reduce las llamadas de "¿ya está lista?". Comparte un enlace único para que tus clientes vean tu trabajo en tiempo real, con fotos y descripciones.
+            </p>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+            <div class="flex justify-center mb-4">
+              <%= image_tag 'icono-control.png', alt: 'Icono de control móvil', class: "h-16 w-16 object-contain" %>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900">Control Total desde tu Celular</h3>
+            <p class="mt-2 text-gray-600">
+              Administra clientes, asigna trabajos y define tu catálogo de servicios. Todo desde la palma de tu mano, en cualquier momento y lugar.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <%# --- SECCIÓN DE PRUEBA SOCIAL (padding reducido) --- %>
+    <section class="py-20"> <%# Cambio: py-24 a py-20 %>
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold text-gray-900">Con la confianza de talleres como el tuyo</h2>
+            <div class="mt-12 max-w-3xl mx-auto">
+                <div class="bg-gray-100 p-8 rounded-xl shadow-inner"> <%# Cambio: bg-gray-50 a bg-gray-100 %>
+                    <p class="text-xl italic text-gray-700">"Desde que usamos MotoMecanico, los clientes están más contentos y hemos reducido las llamadas a la mitad. La transparencia que ofrece es increíble."</p>
+                    <p class="mt-6 font-semibold text-gray-900">— Juan Pérez, Dueño de Taller MotoRápida</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <%# --- SECCIÓN DE PERFIL PÚBLICO (padding reducido y fondo más oscuro) --- %>
+    <section class="bg-gray-100 py-20"> <%# Cambio: bg-gray-50 a bg-gray-100 y py-20 a py-20 %>
+      <div class="container mx-auto px-6 text-center text-gray-800">
+        <h2 class="text-3xl font-bold">Ten tu propia página del taller en línea.</h2>
+        <p class="mt-4 max-w-2xl mx-auto text-gray-600">
+          Tus clientes podrán encontrarte en <code class="bg-gray-200 rounded px-2 py-1 text-indigo-600">motomecanico.com/taller/nombre-de-tu-taller</code>. Haz que sepan dónde estás y qué ofreces.
+        </p>
+        <div class="mt-8">
+            <%= link_to 'Empieza a Crecer tu Taller', new_user_registration_path, class: "bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg text-lg transform hover:scale-105 transition-transform" %>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-white border-t border-gray-200">
+    <div class="container mx-auto px-6 py-8 text-center text-gray-600">
+      <p>&copy; <%= Time.now.year %> MotoMecanico.com. Todos los derechos reservados.</p>
+      <div class="mt-4 flex justify-center gap-6">
+          <a href="#" class="text-gray-500 hover:text-gray-800">Términos de Servicio</a>
+          <a href="#" class="text-gray-500 hover:text-gray-800">Política de Privacidad</a>
+      </div>
+    </div>
+  </footer>
+
+</div>

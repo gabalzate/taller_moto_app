@@ -29,7 +29,10 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  root "dashboard#index"
+  root "pages#home"
+
+  # La ruta al dashboard sigue existiendo, pero ya no es la raíz.
+  get "dashboard", to: "dashboard#index"
 
   #Rutas para el recurso workshop
   resources :clients
