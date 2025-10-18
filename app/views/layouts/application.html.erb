@@ -19,7 +19,14 @@
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
           <%# Lado Izquierdo: Logo/Nombre de la App %>
           <div>
-            <%= link_to 'Moto Mecánico', root_path, class: "text-xl font-bold text-gray-800" %>
+            <%# Este bloque comprueba si el usuario ha iniciado sesión %>
+            <% if user_signed_in? %>
+              <%# Si ha iniciado sesión, el enlace apunta al dashboard %>
+              <%= link_to 'Moto Mecánico', dashboard_path, class: "text-xl font-bold text-gray-800" %>
+            <% else %>
+              <%# Si no, el enlace apunta a la landing page (comportamiento actual) %>
+              <%= link_to 'Moto Mecánico', root_path, class: "text-xl font-bold text-gray-800" %>
+            <% end %>
           </div>
           
           <%# --- INICIO DEL BLOQUE CORREGIDO --- %>

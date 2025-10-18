@@ -38,5 +38,15 @@ class ApplicationController < ActionController::Base
     request.path.include?('/subscriptions') || 
     request.path.include?('/users/sign_out')
   end
-  # --- FIN DEL NUEVO BLOQUE ---
+
+
+  # Sobrescribe el método de Devise para redirigir después del inicio de sesión.
+  def after_sign_in_path_for(resource)
+    # 'resource' es el usuario que acaba de iniciar sesión.
+    # Redirigimos a la ruta del dashboard en lugar de la raíz.
+    dashboard_path 
+  end
+
+
+
 end
